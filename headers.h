@@ -21,6 +21,7 @@
 #include "macro.h"
 
 #include "init.h"
+#include "render.h"
 #include "misc.h"
 
 #endif

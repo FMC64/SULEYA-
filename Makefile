@@ -1,6 +1,6 @@
 CPPFLAGS = -I.
 CFLAGS = -m64 -Wall -Wextra -O2
-LDLIB = -lcsfml-window -lcsfml-graphics -lcsfml-system
+LDLIB = -lm -lcsfml-window -lcsfml-graphics -lcsfml-system
 
 %.o: %.c
 	gcc $(CFLAGS) $(CPPFLAGS) -c $< -o $@

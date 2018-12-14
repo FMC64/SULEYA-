@@ -14,5 +14,12 @@ cn_t* init(void)
     res = malloc_safe(sizeof(cn_t));
     if (!init_win(res))
         return (NULL);
+    init_render_buf();
     return (res);
+}
+
+void quit(cn_t *cn)
+{
+    sfRenderWindow_destroy(cn->win.window);
+    free(cn);
 }

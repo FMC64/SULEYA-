@@ -20,8 +20,10 @@
 #include "data.h"
 #include "macro.h"
 
+#include "mem.h"
 #include "init.h"
 #include "render.h"
+#include "editor.h"
 #include "misc.h"
 
 #endif

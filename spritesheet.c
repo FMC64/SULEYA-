@@ -9,7 +9,7 @@
 
 spritesheet_t* create_spritesheet(sprite_t *sprite, size_t sprite_size)
 {
-    spritesheet_t *res = (spritesheet_t*)malloc(sizeof(spritesheet_t));
+    spritesheet_t *res = (spritesheet_t*)malloc_safe(sizeof(spritesheet_t));
 
     res->sprite = sprite;
     res->size = sprite_size;

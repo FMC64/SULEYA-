@@ -16,7 +16,17 @@ sfSprite *sprite;
 sfTexture *texture;
 } sprite_t;
 
+typedef struct {
+sprite_t *sprite;
+size_t size;
+size_t w;
+size_t h;
+} spritesheet_t;
+
 sprite_t* create_sprite(const char *path);
 void destroy_sprite(sprite_t *sprite);
+
+spritesheet_t* create_spritesheet(sprite_t *sprite, size_t sprite_size);
+void destroy_spritesheet(spritesheet_t *spritesheet);
 
 #endif

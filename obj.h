@@ -8,27 +8,18 @@
 #ifndef _OBJ_H
 #define _OBJ_H
 
-typedef enum {
-OBJ_TILEMAP,
-OBJ_FUN
-} obj_type_t;
+#define LAYER_COUNT 5
 
-typedef struct {
-obj_type_t type;
-void *data;
-} obj_t;
+#define OBJ_ALLOC_STEP 64
 
-typedef struct {
-size_t count;
-size_t allocated;
-obj_t *obj;
-} objs_t;
+obj_t* get_obj_slot(cn_t *cn, float z);
 
-typedef struct {
-vec3 pos;
-size_t w;
-size_t h;
-uint32_t *data;
-} obj_tilemap_t;
+obj_t* add_obj_fun(cn_t *cn, vec3 pos, vec2 size, sprite_t *sprite);
+
+void free_obj_fun(obj_fun_t *fun);
+void free_obj_tilemap(obj_tilemap_t *tilemap);
+
+void free_obj(obj_t *obj);
+void free_objs(cn_t *cn);
 
 #endif

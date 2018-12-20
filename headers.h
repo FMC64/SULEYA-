@@ -22,6 +22,8 @@
 
 #include "mem.h"
 #include "init.h"
+#include "obj.h"
+#include "input.h"
 #include "render.h"
 #include "editor.h"
 #include "misc.h"

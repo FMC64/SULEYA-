@@ -10,8 +10,8 @@
 
 #include "mat.h"
 #include "sprite.h"
-
-#include "obj.h"
+#include "obj_struct.h"
+#include "input_struct.h"
 
 typedef struct {
 uint32_t w;
@@ -23,6 +23,7 @@ sfRenderWindow *window;
 
 typedef struct {
 vec3 pos;
+float ratiowh;
 float fovw;
 } cam_t;
 
@@ -30,6 +31,7 @@ typedef struct {
 win_t win;
 objs_t objs;
 cam_t cam;
+input_t input;
 } cn_t;
 
 #endif

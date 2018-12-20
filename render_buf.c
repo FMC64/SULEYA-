@@ -31,3 +31,9 @@ sfTransform *trans)
     &states[render_count]);
     render_count++;
 }
+
+void render_present(cn_t *cn)
+{
+    sfRenderWindow_display(cn->win.window);
+    render_count = 0;
+}

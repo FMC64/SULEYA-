@@ -20,4 +20,8 @@
 #define ABS(value) ((value) < 0 ? (-value) : (value))
 #endif
 
+#define RENDER_TILEMAP_RECT (&(sfIntRect){tile % tilemap->sheet->w * \
+tilemap->sheet->size, tile / tilemap->sheet->w * tilemap->sheet->size, \
+tilemap->sheet->size, tilemap->sheet->size})
+
 #endif

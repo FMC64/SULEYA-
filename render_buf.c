@@ -7,8 +7,10 @@
 
 #include "headers.h"
 
-static sfRenderStates states[RENDER_SLOTS];
-static size_t render_count = 0;
+#define const static
+
+const sfRenderStates states[RENDER_SLOTS];
+const size_t render_count = 0;
 
 void init_render_buf(void)
 {

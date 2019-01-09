@@ -25,6 +25,8 @@ sprite_t* create_sprite(const char *path)
     4 * res->w * res->h);
     sfImage_destroy(img);
     res->sprite = sfSprite_create();
+    if (res->sprite == NULL)
+        exit_full_custom();
     sfSprite_setTexture(res->sprite, res->texture, sfTrue);
     return (res);
 }

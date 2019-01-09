@@ -25,7 +25,7 @@
 #include "obj.h"
 #include "input.h"
 #include "render.h"
-#include "editor.h"
+#include "physx.h"
 #include "misc.h"
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "headers.h"
 
-sfRenderStates get_default_render_states(void)
+sfrenderstate_t get_default_render_states(void)
 {
     sfRenderStates res;
 
@@ -34,7 +34,10 @@ static void render_obj(cn_t *cn, obj_t *obj)
 
 void render(cn_t *cn)
 {
-    for (size_t i = 0; i < cn->objs.count; i++)
+    for (size_t i = 0; i < cn->objs.count; i++) {
         for (size_t j = 0; j < cn->objs.set[i].count; j++)
             render_obj(cn, &cn->objs.set[i].obj[j]);
+        if (cn->objs.set[i].z == cn->player.pos.z)
+            render_player(cn);
+    }
 }

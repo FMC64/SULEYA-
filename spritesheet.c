@@ -7,18 +7,19 @@
 
 #include "headers.h"
 
-spritesheet_t* create_spritesheet(sprite_t *sprite, size_t sprite_size)
+spritesheet_t* create_spritesheet(const char *path, size_t sprite_size)
 {
     spritesheet_t *res = (spritesheet_t*)malloc_safe(sizeof(spritesheet_t));
 
-    res->sprite = sprite;
+    res->sprite = create_sprite(path);
     res->size = sprite_size;
-    res->w = sprite->w / sprite_size;
-    res->h = sprite->h / sprite_size;
+    res->w = res->sprite->w / sprite_size;
+    res->h = res->sprite->h / sprite_size;
     return (res);
 }
 
 void destroy_spritesheet(spritesheet_t *spritesheet)
 {
+    destroy_sprite(spritesheet->sprite);
     free(spritesheet);
 }

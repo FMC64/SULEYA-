@@ -19,11 +19,10 @@ void render_fun(cn_t *cn, obj_fun_t *fun)
         return;
     x /= z;
     y /= z;
-    x = x * (float)(cn->win.w / 2) + (float)(cn->win.w / 2);
-    y = -y * (float)(cn->win.w / 2) + (float)(cn->win.h / 2);
-    w = (fun->size.x / z) * ((float)(cn->win.w / 2) / (float)fun->sprite->w);
-    h = (fun->size.y / z) * ((float)(cn->win.w / 2) / (float)fun->sprite->h);
-    y -= h * (float)fun->sprite->h;
+    x = x * cn->win.whalf + cn->win.whalf;
+    y = y * cn->win.whalf + cn->win.hhalf;
+    w = (fun->size.x / z) * (cn->win.whalf / (float)fun->sprite->w);
+    h = (fun->size.y / z) * (cn->win.whalf / (float)fun->sprite->h);
     render_sprite(cn, fun->sprite, NULL,
     &(sfTransform){{w, 0.0f, x, 0.0f, h, y, 0.0f, 0.0f, 1.0f}});
 }

@@ -26,3 +26,8 @@ void trans_mul(sfTransform *op, sfTransform *base)
             res.matrix[i * 3 + j] = trans_mul_iter(op, base, i, j);
     *base = res;
 }
+
+float vec2_dot(vec2 a, vec2 b)
+{
+    return (a.x * b.x + a.y * a.y);
+}

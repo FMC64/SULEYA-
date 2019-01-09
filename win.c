@@ -61,6 +61,8 @@ int init_win(cn_t *cn)
 {
     cn->win.w = 1920;
     cn->win.h = 1080;
+    cn->win.whalf = (float)cn->win.w / 2.0f;
+    cn->win.hhalf = (float)cn->win.h / 2.0f;
     cn->win.window = sfRenderWindow_create((sfVideoMode){cn->win.w,
     cn->win.h, 32},
     "SULEYA-", sfResize | sfClose, NULL);

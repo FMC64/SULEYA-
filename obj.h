@@ -15,6 +15,10 @@
 obj_t* get_obj_slot(cn_t *cn, float z);
 
 obj_t* add_obj_fun(cn_t *cn, vec3 pos, vec2 size, sprite_t *sprite);
+obj_t* add_obj_tilemap(cn_t *cn, vec3 pos, size_t w, size_t h);
+
+uint32_t* obj_tilemap_add_layer(obj_t *obj);
+void obj_tilemap_set_sheet(obj_t *obj, spritesheet_t *sheet);
 
 void free_obj_fun(obj_fun_t *fun);
 void free_obj_tilemap(obj_tilemap_t *tilemap);

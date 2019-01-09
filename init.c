@@ -17,6 +17,7 @@ static void init_obj(cn_t *cn)
 static void init_cam(cn_t *cn)
 {
     cn->cam.pos = (vec3){0.0f, 0.0f, -1.0f};
+    cn->cam.shift = (vec3){0.0f, 0.0f, 0.0f};
     cn->cam.ratiowh = (float)cn->win.w / (float)cn->win.h;
     cn->cam.fovw = M_PI / 2.0f;
 }

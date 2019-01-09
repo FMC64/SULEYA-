@@ -19,21 +19,32 @@ void init_input(cn_t *cn)
 
 void poll_input(cn_t *cn)
 {
+    float acc = 0.5f;
+    //float acc = 0.01f;
+
     for (size_t i = 0; i < KEY_COUNT; i++)
         cn->input.keystate[i] = sfKeyboard_isKeyPressed(cn->input.binding[i]);
-    if (cn->input.keystate[KEY_UP])
-        cn->cam.pos.y += CAM_MOVE;
-    if (cn->input.keystate[KEY_DOWN])
+    if (cn->input.keystate[KEY_UP]) {
         cn->cam.pos.y -= CAM_MOVE;
-    if (cn->input.keystate[KEY_LEFT])
+        cn->player.speed.y = -20.0f;
+        //cn->player.speed.y = -2.0f;
+    }
+    if (cn->input.keystate[KEY_DOWN])
+        cn->cam.pos.y += CAM_MOVE;
+    if (cn->input.keystate[KEY_LEFT]) {
         cn->cam.pos.x -= CAM_MOVE;
-    if (cn->input.keystate[KEY_RIGHT])
+        cn->player.speed.x -= acc;
+        if (cn->player.speed.x < -10.0f)
+            cn->player.speed.x = -10.0f;
+    }
+    if (cn->input.keystate[KEY_RIGHT]) {
         cn->cam.pos.x += CAM_MOVE;
+        cn->player.speed.x += acc;
+        if (cn->player.speed.x > 10.0f)
+            cn->player.speed.x = 10.0f;
+    }
     if (sfKeyboard_isKeyPressed(sfKeyZ))
         cn->cam.pos.z += CAM_MOVE;
     if (sfKeyboard_isKeyPressed(sfKeyS))
         cn->cam.pos.z -= CAM_MOVE;
-    /*for (size_t i = 0; i < KEY_COUNT; i++)
-        printf("%d\n", cn->input.keystate[i]);
-    printf("\n");*/
 }

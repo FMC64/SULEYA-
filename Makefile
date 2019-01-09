@@ -1,19 +1,24 @@
-CPPFLAGS = -I. -I./editor
+CPPFLAGS = -I.
 CFLAGS = -m64 -Wall -Wextra -Wno-deprecated-declarations -g
 LDLIB = -lm -lcsfml-window -lcsfml-graphics -lcsfml-system
 
 %.o: %.c
 	gcc $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-SRC = $(wildcard ./*.c) $(wildcard ./editor/*.c)
+SRC = $(filter-out ./main.c, $(wildcard ./*.c))
 OBJ = $(SRC:.c=.o)
+
+MAINSRC = $(wildcard ./main.c)
+MAINOBJ = $(MAINSRC:.c=.o)
+
+TESTSRC = $(wildcard ./criterion/*.c)
 
 OUTPUT = my_runner
 
 all: $(OUTPUT)
 
-$(OUTPUT): $(OBJ)
-	gcc $(CFLAGS) $(CPPFLAGS) $(OBJ) $(LDLIB) -o $(OUTPUT)
+$(OUTPUT): $(OBJ) $(MAINOBJ)
+	gcc $(CFLAGS) $(CPPFLAGS) $(OBJ) $(MAINOBJ) $(LDLIB) -o $(OUTPUT)
 
 clean:
 	rm -f $(OBJ) $(TESTOBJ)
@@ -23,4 +28,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+criterion:
+	gcc $(CFLAGS) $(CPPFLAGS) -I./criterion $(SRC) $(TESTSRC) \
+	$(LDLIB) -lcriterion -o a.out
+
+.PHONY: all clean fclean re criterion

@@ -2,13 +2,12 @@
 ** EPITECH PROJECT, 2018
 ** __pretty_much_accurate__runner
 ** File description:
-** editor
+** physics stuff
 */
 
-#ifndef _EDITOR_H
-#define _EDITOR_H
+#ifndef _PHYSX_H
+#define _PHYSX_H
 
-void editor(cn_t *cn);
-void quit(cn_t *cn);
+void physx(cn_t *cn);
 
 #endif

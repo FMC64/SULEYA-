@@ -15,4 +15,6 @@
 cn_t* init(void);
 int init_win(cn_t *cn);
 
+void quit(cn_t *cn);
+
 #endif

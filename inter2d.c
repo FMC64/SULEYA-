@@ -13,13 +13,23 @@ void inter2d(seg2 a, seg2 b, float *ta, float *tb)
     (a.p[0].x - a.p[1].x) * (b.p[1].y - b.p[0].y);
 
     if (div == 0.0f) {
-        *ta = 0.0f;
-        *tb = 0.0f;
+        if (ta != NULL)
+            *ta = 0.0f;
+        if (tb != NULL)
+            *tb = 0.0f;
     }
-    *ta = ((b.p[0].y - b.p[1].y) * (a.p[0].x - b.p[0].x) +
-    (b.p[1].x - b.p[0].x) * (a.p[0].y - b.p[0].y)) / div;
-    *tb = ((a.p[0].y - a.p[1].y) * (a.p[0].x - b.p[0].x) +
-    (a.p[1].x - a.p[0].x) * (a.p[0].y - b.p[0].y)) / div;
+    if (ta != NULL)
+        *ta = ((b.p[0].y - b.p[1].y) * (a.p[0].x - b.p[0].x) +
+        (b.p[1].x - b.p[0].x) * (a.p[0].y - b.p[0].y)) / div;
+    if (tb != NULL)
+        *tb = ((a.p[0].y - a.p[1].y) * (a.p[0].x - b.p[0].x) +
+        (a.p[1].x - a.p[0].x) * (a.p[0].y - b.p[0].y)) / div;
+}
+
+vec2 seg2_interp(seg2 seg, float ratio)
+{
+    return ((vec2){seg.p[0].x + ratio * (seg.p[1].x - seg.p[0].x),
+    seg.p[0].y + ratio * (seg.p[1].y - seg.p[0].y)});
 }
 
 float ray2d(seg2 ray, seg2 b)

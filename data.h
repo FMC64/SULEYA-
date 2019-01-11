@@ -21,11 +21,14 @@ typedef struct {
     float framerate;
     float framelen;
     sfRenderWindow *window;
+    sfClock *clock;
+    uint64_t frame;
 } win_t;
 
 typedef struct {
     vec3 pos;
     vec3 speed;
+    float maxsx;
     vec2 size;
     int is_grounded;
     sprite_t *sprite;

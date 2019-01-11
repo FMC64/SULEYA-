@@ -33,6 +33,7 @@ cn_t* init(void)
     init_render_buf();
     init_cam(res);
     init_input(res);
+    srand(time(NULL));
     return (res);
 }
 

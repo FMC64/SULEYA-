@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
+#include <time.h>
 
 #include <SFML/Window.h>
 #include <SFML/Graphics.h>

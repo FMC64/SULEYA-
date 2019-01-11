@@ -65,11 +65,23 @@ static void manage_is_grounded(cn_t *cn)
 {
     if (cn->player.is_grounded) {
         if (cn->player.speed.x > 0.0f) {
-            cn->player.speed.x -= 20.0f * cn->win.framelen;
+            cn->player.speed.x -= 50.0f * cn->win.framelen;
+            if (cn->player.speed.x < cn->player.maxsx) {
+                cn->player.maxsx = cn->player.speed.x;
+                if (cn->player.maxsx < 14.0f)
+                    cn->player.maxsx = 14.0f;
+            }
+            //cn->player.speed.x -= (cn->player.speed.x / 20.0f) * 70.0f * cn->win.framelen;
             if (cn->player.speed.x < 0.0f)
                 cn->player.speed.x = 0.0f;
         } else if (cn->player.speed.x < 0.0f) {
-            cn->player.speed.x += 20.0f * cn->win.framelen;
+            cn->player.speed.x += 50.0f * cn->win.framelen;
+            if (cn->player.speed.x > -cn->player.maxsx) {
+                cn->player.maxsx = cn->player.speed.x;
+                if (cn->player.maxsx < 14.0f)
+                    cn->player.maxsx = 14.0f;
+            }
+            //cn->player.speed.x -= (cn->player.speed.x / 20.0f) * 70.0f * cn->win.framelen;
             if (cn->player.speed.x > 0.0f)
                 cn->player.speed.x = 0.0f;
         }

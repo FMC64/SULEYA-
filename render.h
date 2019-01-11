@@ -27,4 +27,6 @@ void render_tilemap(cn_t *cn, obj_tilemap_t *tilemap);
 
 void render_player(cn_t *cn);
 
+void update_framerate(cn_t *cn);
+
 #endif

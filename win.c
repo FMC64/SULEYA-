@@ -16,6 +16,8 @@ static float get_nearest_framerate(float framelen)
     size_t min_delta_ndx = 0;
     float currate = 1.0 / framelen;
 
+    //currate = 30.0f;
+    //return (5.0f);
     printf("currate: %f\n", currate);
     for (size_t i = 0; i < WIN_REFRESH_NB; i++) {
         delta = rate[i] - currate;
@@ -65,7 +67,7 @@ int init_win(cn_t *cn)
     cn->win.hhalf = (float)cn->win.h / 2.0f;
     cn->win.window = sfRenderWindow_create((sfVideoMode){cn->win.w,
     cn->win.h, 32},
-    "SULEYA-", sfResize | sfClose, NULL);
+    "SULEYA-", sfFullscreen | sfClose, NULL);
     if (cn->win.window == NULL)
         return (0);
     sfWindow_setVerticalSyncEnabled((sfWindow*)cn->win.window, sfTrue);
@@ -74,5 +76,8 @@ int init_win(cn_t *cn)
     sfRenderWindow_setFramerateLimit(cn->win.window,
     (uint32_t)cn->win.framerate);
     printf("framerate: %f\nframelen: %f\n", cn->win.framerate, cn->win.framelen);
+    cn->win.frame = 0;
+    cn->win.clock = sfClock_create();
+    sfClock_restart(cn->win.clock);
     return (1);
 }

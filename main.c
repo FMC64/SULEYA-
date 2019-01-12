@@ -36,18 +36,19 @@ void add_map(cn_t *cn, spritesheet_t *sheet)
         layer[i] = i;
 }
 
-void cam_ac(cn_t *cn, vec3 speedprev)
+void cam_ac(cn_t *cn, vec3 speedprv)
 {
-    if (fabsf(cn->player.speed.x) >= fabs(speedprev.x))
-        cn->cam.shift.x += fabsf(cn->player.speed.x) * cn->win.framelen * 0.3;
+    float speed = dist3(cn->player.speed);
+    float speedprev = dist3(speedprv);
+
+    if ((speed >= speedprev) && (speed > 0.1f))
+        cn->cam.shift.x += cn->win.framelen * 2.0f;
     else
-        cn->cam.shift.x -= fabsf(cn->player.speed.x) * cn->win.framelen * 1.0;
-    if (cn->player.speed.x == 0.0f)
-        cn->cam.shift.x -= 5.0f * cn->win.framelen * 1.0;
+        cn->cam.shift.x -= cn->win.framelen * 5.0f;
+    if (cn->cam.shift.x > 6.0f)
+        cn->cam.shift.x = 6.0f;
     if (cn->cam.shift.x < 0.0f)
         cn->cam.shift.x = 0.0f;
-    if (cn->cam.shift.x > ((fabs(cn->player.speed.x) / 14.0f) * 4.0f))
-        cn->cam.shift.x = (fabs(cn->player.speed.x) / 14.0f) * 4.0f;
     cn->cam.pos = cn->player.pos;
     cn->cam.pos.z -= 15.0f + cn->cam.shift.x;
     cn->cam.pos.x += cn->player.size.x / 2.0f;

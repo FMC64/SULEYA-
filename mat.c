@@ -29,7 +29,7 @@ void trans_mul(sfTransform *op, sfTransform *base)
 
 float vec2_dot(vec2 a, vec2 b)
 {
-    return (a.x * b.x + a.y * a.y);
+    return (a.x * b.x + a.y * b.y);
 }
 
 float dist2_sq(vec2 a, vec2 b)
@@ -37,4 +37,9 @@ float dist2_sq(vec2 a, vec2 b)
     vec2 vec = {b.x - a.x, b.y - a.y};
 
     return (vec.x * vec.x + vec.y * vec.y);
+}
+
+float dist3(vec3 vec)
+{
+    return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }

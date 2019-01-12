@@ -16,7 +16,7 @@ static float get_nearest_framerate(float framelen)
     size_t min_delta_ndx = 0;
     float currate = 1.0 / framelen;
 
-    //return (5.0f);
+    //return (60.0f);
     printf("currate: %f\n", currate);
     for (size_t i = 0; i < WIN_REFRESH_NB; i++) {
         delta = rate[i] - currate;

@@ -7,7 +7,7 @@
 
 #include "headers.h"
 
-static vec2 get_fun_norm(size_t i)
+vec2 get_fun_norm(size_t i)
 {
     vec2 norm[4] = {{0.0f, -1.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {-1.0f, 0.0f}};
 
@@ -26,19 +26,12 @@ vec2 norm, vec2 *vec)
     add_phys_col(vec2_sub(seg2_interp(fun_line, t), seg.p[1]), vec);
 }
 
-static void phys_fun_ptofun(obj_fun_t *fun, vec2 to_ext, vec2 *vec)
+static void phys_fun_ptofun(vec2 *point, vec2 to_ext, vec2 *vec)
 {
-    vec2 point[5] = {{fun->pos.x, fun->pos.y},
-    {fun->pos.x + fun->size.x, fun->pos.y},
-    {fun->pos.x + fun->size.x, fun->pos.y + fun->size.y},
-    {fun->pos.x, fun->pos.y + fun->size.y}};
     seg2 seg = {{to_ext, {to_ext.x + vec->x, to_ext.y + vec->y}}};
     float ta;
     float tb;
 
-    if (!fun->is_collider)
-        return;
-    point[4] = point[0];
     for (size_t i = 0; i < 4; i++) {
         inter2d(seg, (seg2){{point[i], point[i + 1]}}, &ta, &tb);
         if (((ta >= 0.0f) && (ta <= 1.0f)) && ((tb >= 0.0f) && (tb <= 1.0f))) {
@@ -51,12 +44,22 @@ static void phys_fun_ptofun(obj_fun_t *fun, vec2 to_ext, vec2 *vec)
 
 void phys_fun(cn_t *cn, obj_fun_t *fun, vec2 *vec)
 {
-    vec2 player[4] = {{cn->player.pos.x, cn->player.pos.y},
+    vec2 player_point[5] = {{cn->player.pos.x, cn->player.pos.y},
     {cn->player.pos.x + cn->player.size.x, cn->player.pos.y},
-    {cn->player.pos.x, cn->player.pos.y + cn->player.size.y},
     {cn->player.pos.x + cn->player.size.x, cn->player.pos.y +
-    cn->player.size.y}};
+    cn->player.size.y},
+    {cn->player.pos.x, cn->player.pos.y + cn->player.size.y}};
+    vec2 fun_point[5] = {{fun->pos.x, fun->pos.y},
+    {fun->pos.x + fun->size.x, fun->pos.y},
+    {fun->pos.x + fun->size.x, fun->pos.y + fun->size.y},
+    {fun->pos.x, fun->pos.y + fun->size.y}};
 
+    if (!fun->is_collider)
+        return;
+    player_point[4] = player_point[0];
+    fun_point[4] = fun_point[0];
     for (size_t i = 0; i < 4; i++)
-        phys_fun_ptofun(fun, player[i], vec);
+        phys_fun_ptofun(fun_point, player_point[i], vec);
+    for (size_t i = 0; i < 4; i++)
+        phys_fun_funtop(player_point, fun_point[i], vec);
 }

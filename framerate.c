@@ -11,7 +11,6 @@ void update_framerate(cn_t *cn)
 {
     sfTime got;
 
-    return;
     cn->win.frame++;
     if (cn->win.frame == 128) {
         got = sfClock_getElapsedTime(cn->win.clock);

@@ -26,38 +26,12 @@ static void test_col_set(cn_t *cn, objset_t set, vec2 *vec)
     }
 }
 
-static void manage_is_grounded(cn_t *cn)
-{
-    if (cn->player.is_grounded) {
-        if (cn->player.speed.x > 0.0f) {
-            cn->player.speed.x -= 50.0f * cn->win.framelen;
-            if (cn->player.speed.x < cn->player.maxsx) {
-                cn->player.maxsx = cn->player.speed.x;
-                if (cn->player.maxsx < 14.0f)
-                    cn->player.maxsx = 14.0f;
-            }
-            if (cn->player.speed.x < 0.0f)
-                cn->player.speed.x = 0.0f;
-        } else if (cn->player.speed.x < 0.0f) {
-            cn->player.speed.x += 50.0f * cn->win.framelen;
-            if (cn->player.speed.x > -cn->player.maxsx) {
-                cn->player.maxsx = cn->player.speed.x;
-                if (cn->player.maxsx < 14.0f)
-                    cn->player.maxsx = 14.0f;
-            }
-            if (cn->player.speed.x > 0.0f)
-                cn->player.speed.x = 0.0f;
-        }
-        cn->player.is_grounded = 0;
-    }
-}
-
 void physx(cn_t *cn)
 {
     vec2 vec;
     vec2 vec_start;
 
-    manage_is_grounded(cn);
+    phys_is_grounded(cn);
     cn->player.speed.y += 30.0f * cn->win.framelen;
     vec = (vec2){cn->player.speed.x * cn->win.framelen,
     cn->player.speed.y * cn->win.framelen};

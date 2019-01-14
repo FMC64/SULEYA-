@@ -23,8 +23,9 @@ void init_render_buf(void)
 void render_sprite(cn_t *cn, sprite_t *sprite, sfIntRect *rectangle,
 sfTransform *trans)
 {
-    if (rectangle != NULL)
-        sfSprite_setTextureRect(sprite->sprite, *rectangle);
+    (void)rectangle;
+    //if (rectangle != NULL)
+    //    sfSprite_setTextureRect(sprite->sprite, *rectangle);
     if (trans != NULL)
         states[render_count].transform = *trans;
     else

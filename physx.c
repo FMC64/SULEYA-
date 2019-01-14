@@ -9,8 +9,8 @@
 
 void add_phys_col(vec2 to_add, vec2 *acc)
 {
-    acc->x += to_add.x * 1.01f;
-    acc->y += to_add.y * 1.01f;
+    acc->x += to_add.x * 1.1f;
+    acc->y += to_add.y * 1.1f;
 }
 
 static void test_col_set(cn_t *cn, objset_t set, vec2 *vec)
@@ -24,6 +24,15 @@ static void test_col_set(cn_t *cn, objset_t set, vec2 *vec)
             break;
         }
     }
+    /*for (size_t i = 0; i < set.count; i++) {
+        switch (set.obj[i].type) {
+        case OBJ_FUN:
+            phys_fun(cn, set.obj[set.count - 1 - i].data, vec);
+            break;
+        default:
+            break;
+        }
+    }*/
 }
 
 void physx(cn_t *cn)

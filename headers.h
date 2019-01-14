@@ -27,6 +27,8 @@
 #include "input.h"
 #include "render.h"
 #include "physx.h"
+#include "game.h"
+#include "sprite.h"
 #include "misc.h"
 
 #endif

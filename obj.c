@@ -76,4 +76,5 @@ void free_objs(cn_t *cn)
         free(cn->objs.set[i].obj);
     }
     free(cn->objs.set);
+    init_obj(cn);
 }

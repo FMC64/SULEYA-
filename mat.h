@@ -27,6 +27,7 @@ void trans_mul(sfTransform *op, sfTransform *base);
 
 vec2 vec2_add(vec2 a, vec2 b);
 vec2 vec2_sub(vec2 a, vec2 b);
+vec2 vec2_normalize(vec2 vec);
 
 float vec2_dot(vec2 a, vec2 b);
 float dist2_sq(vec2 a, vec2 b);

@@ -33,7 +33,7 @@ void phys_fun_funtop(vec2 *point, vec2 to_ext, vec2 *vec)
         inter2d(seg, (seg2){{point[i], point[i + 1]}}, &ta, &tb);
         if (((ta >= 0.0f) && (ta <= 1.0f)) && ((tb >= 0.0f) && (tb <= 1.0f))) {
             phys_fun_funtop_inter_found(seg, (seg2){{point[i], point[i + 1]}},
-            get_fun_norm(i), vec);
+            get_p_norm(i), vec);
             seg = (seg2){{to_ext, {to_ext.x - vec->x, to_ext.y - vec->y}}};
         }
     }

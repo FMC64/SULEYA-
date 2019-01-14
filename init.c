@@ -7,7 +7,7 @@
 
 #include "headers.h"
 
-static void init_obj(cn_t *cn)
+void init_obj(cn_t *cn)
 {
     cn->objs.count = 0;
     cn->objs.allocated = 0;
@@ -33,6 +33,7 @@ cn_t* init(void)
     init_render_buf();
     init_cam(res);
     init_input(res);
+    load_sprites(res);
     srand(time(NULL));
     return (res);
 }
@@ -40,6 +41,8 @@ cn_t* init(void)
 void quit(cn_t *cn)
 {
     free_objs(cn);
+    unload_sprites(cn);
+    sfClock_destroy(cn->win.clock);
     sfRenderWindow_destroy(cn->win.window);
     free(cn);
 }

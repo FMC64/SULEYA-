@@ -9,7 +9,7 @@
 #define _DATA_H
 
 #include "mat.h"
-#include "sprite.h"
+#include "sprite_struct.h"
 #include "obj_struct.h"
 #include "input_struct.h"
 
@@ -42,11 +42,18 @@ typedef struct {
 } cam_t;
 
 typedef struct {
+    sfClock *clock;
+    float time;
+    sprite_t *sprite[S_MAX];
+} sprites_t;
+
+typedef struct {
     win_t win;
     objs_t objs;
     cam_t cam;
     player_t player;
     input_t input;
+    sprites_t s;
 } cn_t;
 
 typedef sfRenderStates sfrenderstate_t;

@@ -29,6 +29,7 @@
 #include "physx.h"
 #include "game.h"
 #include "sprite.h"
+#include "player.h"
 #include "misc.h"
 
 #endif

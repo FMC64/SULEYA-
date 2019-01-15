@@ -14,8 +14,9 @@ typedef enum {
 } obj_type_t;
 
 typedef struct {
-vec3 vertex[3];
-} triangle_t;
+    uint64_t count;
+    vec2 vertex[4];
+} mesh_t;
 
 typedef struct {
     obj_type_t type;
@@ -48,19 +49,10 @@ typedef struct {
 
 typedef struct {
     int is_collider;
+    mesh_t mesh;
     vec3 pos;
     vec2 size;
     sprite_t *sprite;
 } obj_fun_t;
-
-typedef struct {
-    vec3 pos;
-    vec3 center;
-    uint64_t triangle_count;
-    triangle_t *triangle_base;
-    triangle_t *triangle;
-    vec2 size;
-    sprite_t *sprite;
-} obj_phys_t;
 
 #endif

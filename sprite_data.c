@@ -8,7 +8,6 @@
 #include "headers.h"
 
 static const sprite_data_descriptor_t sprite_data[] = {
-    {S_BASHO, "res/basho.jpg"},
     {S_TREE, "res/tree.png"},
     {S_PEBBLES_MOD, "res/pebbles_mod.png"},
     {S_SKY, "res/sky.png"},
@@ -16,48 +15,63 @@ static const sprite_data_descriptor_t sprite_data[] = {
     {0, NULL}
 };
 
+static const sprite_anim_data_descriptor_t sprite_anim_data[] = {
+    {S_BASHO_RUN, "res/anim/basho_run/sheet.png", 3, 0.1f},
+    {S_BASHO_RUN_L, "res/anim/basho_run/sheet_l.png", 3, 0.1f},
+    {S_BASHO_IDLE, "res/anim/basho_idle/sheet.png", 2, 2.0f},
+    {S_BASHO_IDLE_L, "res/anim/basho_idle/sheet_l.png", 2, 2.0f},
+    {S_BASHO_AIR, "res/anim/basho_air/sheet.png", 4, 0.1f},
+    {S_BASHO_AIR_L, "res/anim/basho_air/sheet_l.png", 4, 0.1f}
+};
+
 void load_sprites(cn_t *cn)
 {
     for (size_t i = 0; i < S_MAX; i++)
-        cn->s.sprite[i] = NULL;
+        cn->sprite[i] = NULL;
     for (size_t i = 0; sprite_data[i].path != NULL; i++)
-        cn->s.sprite[sprite_data[i].index] = create_sprite(sprite_data[i].path);
-    //cn->s.sprite[S_BASHO]->framecount = 3;
-    //cn->s.sprite[S_BASHO]->framelen = 0.2f;
-    cn->s.clock = sfClock_create();
-    sfClock_restart(cn->s.clock);
+        cn->sprite[sprite_data[i].index] = create_sprite(sprite_data[i].path);
+    for (size_t i = 0; sprite_anim_data[i].path != NULL; i++) {
+        cn->sprite[sprite_anim_data[i].index] =
+        create_sprite(sprite_anim_data[i].path);
+        cn->sprite[sprite_anim_data[i].index]->framecount =
+        sprite_anim_data[i].framecount;
+        cn->sprite[sprite_anim_data[i].index]->framelen =
+        sprite_anim_data[i].framelen;
+        cn->sprite[sprite_anim_data[i].index]->clock = sfClock_create();
+        sfClock_restart(cn->sprite[sprite_anim_data[i].index]->clock);
+    }
 }
 
 void unload_sprites(cn_t *cn)
 {
     for (size_t i = 0; i < S_MAX; i++)
-        if (cn->s.sprite[i] != NULL)
-            destroy_sprite(cn->s.sprite[i]);
-    sfClock_destroy(cn->s.clock);
+        if (cn->sprite[i] != NULL)
+            destroy_sprite(cn->sprite[i]);
 }
 
-static void update_sprite(cn_t *cn, sprite_t *sprite)
+static void update_sprite(sprite_t *sprite)
 {
     sfIntRect rectangle = {0, 0, 0, 0};
     uint32_t frame;
-    uint32_t framew;
+    float time = sfTime_asSeconds(sfClock_getElapsedTime(sprite->clock));
 
-    frame = fmodf(cn->s.time, sprite->framelen * (float)sprite->framecount) /
+    frame = fmodf(time, sprite->framelen * (float)sprite->framecount) /
     sprite->framelen;
     if (frame == sprite->frame)
         return;
     sprite->frame = frame;
-    framew = sprite->w / sprite->framecount;
-    rectangle.left = frame * framew;
-    rectangle.width = framew;
+    sprite->w = sprite->truew / sprite->framecount;
+    rectangle.left = frame * sprite->w;
+    rectangle.width = sprite->w;
     rectangle.height = sprite->h;
     sfSprite_setTextureRect(sprite->sprite, rectangle);
+    if (sfTime_asSeconds(sfClock_getElapsedTime(sprite->clock)) > 128.0f)
+        sfClock_restart(sprite->clock);
 }
 
 void update_sprites_frame(cn_t *cn)
 {
-    cn->s.time = sfTime_asSeconds(sfClock_getElapsedTime(cn->s.clock));
     for (size_t i = 0; i < S_MAX; i++)
-        if (cn->s.sprite[i]->framecount > 1)
-            update_sprite(cn, cn->s.sprite[i]);
+        if (cn->sprite[i]->clock != NULL)
+            update_sprite(cn->sprite[i]);
 }

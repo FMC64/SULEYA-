@@ -16,12 +16,14 @@ sprite_t* create_sprite(const char *path)
     if (res->texture == NULL)
         exit_full_custom();
     vec2 = sfTexture_getSize(res->texture);
+    res->truew = vec2.x;
     res->w = vec2.x;
     res->h = vec2.y;
     res->sprite = sfSprite_create();
-    res->frame = 0;
+    res->frame = -1;
     res->framecount = 1;
     res->framelen = 1.0f;
+    res->clock = NULL;
     if (res->sprite == NULL)
         exit_full_custom();
     sfSprite_setTexture(res->sprite, res->texture, sfTrue);
@@ -32,5 +34,7 @@ void destroy_sprite(sprite_t *sprite)
 {
     sfSprite_destroy(sprite->sprite);
     sfTexture_destroy(sprite->texture);
+    if (sprite->clock != NULL)
+        sfClock_destroy(sprite->clock);
     free(sprite);
 }

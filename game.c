@@ -38,7 +38,7 @@ void cam_ac(cn_t *cn, vec3 speedprv)
     if (cn->cam.shift.x < 0.0f)
         cn->cam.shift.x = 0.0f;
     cn->cam.pos = cn->player.pos;
-    cn->cam.pos.z -= 15.0f + cn->cam.shift.x;
+    cn->cam.pos.z -= 8.0f + cn->cam.shift.x;
     cn->cam.pos.x += cn->player.size.x / 2.0f;
 }
 
@@ -88,31 +88,33 @@ void game(cn_t *cn)
     obj_t *lastsky;
     vec3 speedprev = {0.0f, 0.0f, 0.0f};
 
-    cn->player.sprite = cn->s.sprite[S_BASHO];
+    cn->player.sprite = cn->sprite[S_BASHO_IDLE];
     cn->player.pos = (vec3){0.0f, -20.0f, 0.0f};
     cn->player.speed = (vec3){0.0f, 0.0f, 0.0f};
     cn->player.maxsx = 14.0;
     cn->player.size = (vec2){1.0f, 2.0f};
     cn->player.is_grounded = 0;
+    cn->player.is_right = 1;
     obj = add_obj_fun(cn, (vec3){-20.0f, 0.0f, 0.0f}, (vec2){10.0f, 5.0f},
-    cn->s.sprite[S_PEBBLES_MOD]);
+    cn->sprite[S_PEBBLES_MOD]);
     lastsky = add_obj_fun(cn, (vec3){-1100.0f, -650.0f, 1000.0f},
-    (vec2){2500.0f, 1250.0f}, cn->s.sprite[S_SKY]);
+    (vec2){2500.0f, 1250.0f}, cn->sprite[S_SKY]);
     while (poll_events(cn)) {
         poll_input(cn);
         if (((obj_fun_t*)obj->data)->pos.x - cn->player.pos.x < 100.0f) {
             obj = gen_ter(cn, ((obj_fun_t*)obj->data)->pos,
-            ((obj_fun_t*)obj->data)->size, cn->s.sprite[S_PEBBLES_MOD]);
-            gen_pub(cn, cn->s.sprite[S_BENDY], cn->s.sprite[S_TREE],
+            ((obj_fun_t*)obj->data)->size, cn->sprite[S_PEBBLES_MOD]);
+            gen_pub(cn, cn->sprite[S_BENDY], cn->sprite[S_TREE],
             ((obj_fun_t*)obj->data)->pos);
         }
         if (((obj_fun_t*)lastsky->data)->pos.x - cn->player.pos.x < 1000.0f) {
-            lastsky = gen_sky(cn, lastsky->data, cn->s.sprite[S_SKY]);
+            lastsky = gen_sky(cn, lastsky->data, cn->sprite[S_SKY]);
         }
         physx(cn);
         cam_ac(cn, speedprev);
         speedprev = cn->player.speed;
         update_sprites_frame(cn);
+        update_player_sprite(cn);
         sfRenderWindow_clear(cn->win.window, sfBlue);
         render(cn);
         render_present(cn);

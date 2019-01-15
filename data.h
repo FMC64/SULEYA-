@@ -32,6 +32,8 @@ typedef struct {
     vec2 size;
     int is_grounded;
     sprite_t *sprite;
+    int is_right;
+    int is_moving;
 } player_t;
 
 typedef struct {
@@ -42,18 +44,12 @@ typedef struct {
 } cam_t;
 
 typedef struct {
-    sfClock *clock;
-    float time;
-    sprite_t *sprite[S_MAX];
-} sprites_t;
-
-typedef struct {
     win_t win;
     objs_t objs;
     cam_t cam;
     player_t player;
     input_t input;
-    sprites_t s;
+    sprite_t *sprite[S_MAX];
 } cn_t;
 
 typedef sfRenderStates sfrenderstate_t;

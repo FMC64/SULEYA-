@@ -48,4 +48,9 @@ void poll_input(cn_t *cn)
         cn->player.speed.y =
         -(13.0f + (fabsf(cn->player.speed.x) / cn->player.maxsx) * 7.0f);
     poll_input_lr(cn);
+    if (cn->input.keystate[KEY_LEFT] || cn->input.keystate[KEY_RIGHT]) {
+        cn->player.is_right = cn->input.keystate[KEY_RIGHT];
+        cn->player.is_moving = 1;
+    } else
+        cn->player.is_moving = 0;
 }

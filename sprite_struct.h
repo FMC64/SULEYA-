@@ -8,7 +8,22 @@
 #ifndef _SPRITE_STRUCT_H
 #define _SPRITE_STRUCT_H
 
+typedef enum {
+    S_BASHO_RUN,
+    S_BASHO_RUN_L,
+    S_BASHO_IDLE,
+    S_BASHO_IDLE_L,
+    S_BASHO_AIR,
+    S_BASHO_AIR_L,
+    S_TREE,
+    S_PEBBLES_MOD,
+    S_SKY,
+    S_BENDY,
+    S_MAX
+} sprite_data_t;
+
 typedef struct {
+    size_t truew;
     size_t w;
     size_t h;
     sfSprite *sprite;
@@ -16,6 +31,7 @@ typedef struct {
     uint32_t frame;
     uint32_t framecount;
     float framelen;
+    sfClock *clock;
 } sprite_t;
 
 typedef struct {
@@ -25,18 +41,16 @@ typedef struct {
     size_t h;
 } spritesheet_t;
 
-typedef enum {
-    S_BASHO,
-    S_TREE,
-    S_PEBBLES_MOD,
-    S_SKY,
-    S_BENDY,
-    S_MAX
-} sprite_data_t;
-
 typedef struct {
     sprite_data_t index;
     const char *path;
 } sprite_data_descriptor_t;
+
+typedef struct {
+    sprite_data_t index;
+    const char *path;
+    uint32_t framecount;
+    float framelen;
+} sprite_anim_data_descriptor_t;
 
 #endif

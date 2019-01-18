@@ -19,4 +19,6 @@ void init_obj(cn_t *cn);
 
 void quit(cn_t *cn);
 
+void init_render(cn_t *cn);
+
 #endif

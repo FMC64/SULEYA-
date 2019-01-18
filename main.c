@@ -18,6 +18,10 @@ int main(int argc, char **argv, char **env)
     cn = init();
     if (cn == NULL)
         return (84);
+    if (!intro(cn))
+        return (0);
+    if (!menu(cn))
+        return (0);
     game(cn);
     quit(cn);
     return (EXIT_SUCCESS);

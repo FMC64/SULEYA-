@@ -27,4 +27,6 @@ void render_tilemap(cn_t *cn, obj_tilemap_t *tilemap);
 
 void update_framerate(cn_t *cn);
 
+void set_dithering(cn_t *cn, int is_fading, float time);
+
 #endif

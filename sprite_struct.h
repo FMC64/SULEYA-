@@ -22,6 +22,15 @@ typedef enum {
     S_PEBBLES_MOD_HALF,
     S_SKY,
     S_BENDY,
+    S_GRADIENT,
+    S_GAX,
+    S_BASHO_MENU,
+    S_MENU_TITLE,
+    S_MENU_BG,
+    S_MENU_ASTEROID,
+    S_MENU_BG2,
+    S_MENU_INC_BASHO,
+    S_MENU_PRO_HINT,
     S_MAX
 } sprite_data_t;
 

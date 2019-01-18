@@ -7,7 +7,7 @@
 
 #include "headers.h"
 
-static int poll_events(cn_t *cn)
+int poll_events(cn_t *cn)
 {
     sfEvent event;
 
@@ -127,9 +127,6 @@ void game(cn_t *cn)
         speedprev = cn->player.fun->speed;
         update_sprites_frame(cn);
         update_objs(cn);
-        sfRenderWindow_clear(cn->win.window, sfBlue);
         render(cn);
-        render_present(cn);
-        update_framerate(cn);
     }
 }

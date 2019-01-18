@@ -57,6 +57,7 @@ cn_t* init(void)
     init_cam(res);
     init_input(res);
     load_sprites(res);
+    init_render(res);
     srand(time(NULL));
     return (res);
 }
@@ -67,6 +68,7 @@ void quit(cn_t *cn)
     unload_sprites(cn);
     sfClock_destroy(cn->win.clock);
     sfClock_destroy(cn->player.clock);
+    sfClock_destroy(cn->render.clock);
     sfRenderWindow_destroy(cn->win.window);
     free(cn);
 }

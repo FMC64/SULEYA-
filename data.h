@@ -48,12 +48,21 @@ typedef struct {
 } cam_t;
 
 typedef struct {
+    int is_dithering;
+    int dither_is_fading;
+    float dithering_laps;
+    int is_dither_done;
+    sfClock *clock;
+} render_t;
+
+typedef struct {
     win_t win;
     objs_t objs;
     cam_t cam;
     player_t player;
     input_t input;
     sprite_t *sprite[S_MAX];
+    render_t render;
 } cn_t;
 
 typedef sfRenderStates sfrenderstate_t;

@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2018
 ** __pretty_much_accurate__runner
@@ -13,6 +14,15 @@ static const sprite_data_descriptor_t sprite_data[] = {
     {S_PEBBLES_MOD_HALF, "res/pebbles_mod.png"},
     {S_SKY, "res/sky.png"},
     {S_BENDY, "res/bendy_blurred.png"},
+    {S_GRADIENT, "res/misc/gradient.png"},
+    {S_GAX, "res/misc/gax.png"},
+    {S_BASHO_MENU, "res/menu/basho.png"},
+    {S_MENU_TITLE, "res/menu/title.png"},
+    {S_MENU_BG, "res/menu/bg.jpg"},
+    {S_MENU_ASTEROID, "res/menu/asteroid.png"},
+    {S_MENU_BG2, "res/menu/bg2.png"},
+    {S_MENU_INC_BASHO, "res/menu/inc_basho.png"},
+    {S_MENU_PRO_HINT, "res/menu/pro_hint.png"},
     {0, NULL}
 };
 

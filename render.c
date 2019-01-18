@@ -32,9 +32,42 @@ static void render_obj(cn_t *cn, obj_t *obj)
     }
 }
 
-void render(cn_t *cn)
+static void render_fading(cn_t *cn)
+{
+    float time;
+    float ratio;
+
+    if (!cn->render.is_dithering)
+        return;
+    time = sfTime_asSeconds(sfClock_getElapsedTime(cn->render.clock));
+    if (time > cn->render.dithering_laps) {
+        cn->render.is_dither_done = 1;
+        if (!cn->render.dither_is_fading)
+            return;
+        render_sprite(cn, cn->sprite[S_GRADIENT], &(sfIntRect){255, 0, 1, 1},
+        &(sfTransform){{cn->win.w, 0.0f, 0.0f, 0.0f, cn->win.h, 0.0f,
+        0.0f, 0.0f, 1.0f}});
+    }
+    ratio = time / cn->render.dithering_laps;
+    if (!cn->render.dither_is_fading)
+        ratio = 1.0f - ratio;
+    render_sprite(cn, cn->sprite[S_GRADIENT], &(sfIntRect){ratio * 255.0f,
+    0, 1, 1}, &(sfTransform){{cn->win.w, 0.0f, 0.0f, 0.0f, cn->win.h, 0.0f,
+    0.0f, 0.0f, 1.0f}});
+}
+
+void render_draw(cn_t *cn)
 {
     for (size_t i = 0; i < cn->objs.count; i++)
         for (size_t j = 0; j < cn->objs.set[i].count; j++)
             render_obj(cn, &cn->objs.set[i].obj[j]);
+    render_fading(cn);
+}
+
+void render(cn_t *cn)
+{
+    sfRenderWindow_clear(cn->win.window, sfBlack);
+    render_draw(cn);
+    render_present(cn);
+    update_framerate(cn);
 }

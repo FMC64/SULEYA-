@@ -7,18 +7,35 @@
 
 #include "headers.h"
 
-obj_t* add_obj_fun(cn_t *cn, vec3 pos, vec2 size, sprite_t *sprite)
+static void obj_fun_init_bools(obj_fun_t *fun)
+{
+    fun->is_collider = 1;
+    fun->is_static = 1;
+    fun->is_grounded = 0;
+    fun->is_destroyable = 0;
+    fun->is_sprite_linked = 0;
+}
+
+obj_fun_t* add_obj_fun(cn_t *cn, vec3 pos, vec2 size, sprite_t *sprite)
 {
     obj_fun_t *to_add = (obj_fun_t*)malloc_safe(sizeof(obj_fun_t));
     obj_t *cur = get_obj_slot(cn, pos.z);
 
-    to_add->is_collider = 1;
+    obj_fun_init_bools(to_add);
+    to_add->friction = 10.0f;
+    to_add->bounce = 1.1f;
+    to_add->mesh = (mesh_t){4, {{0.0f, 0.0f}, {size.x, 0.0f}, {size.x, size.y},
+    {0.0f, size.y}}, {{0.0f, -1.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
+    {-1.0f, 0.0f}}};
     to_add->pos = pos;
+    to_add->speed = (vec3){0.0f, 0.0f, 0.0f};
     to_add->size = size;
     to_add->sprite = sprite;
+    to_add->life = 0.0f;
+    to_add->clock = NULL;
     cur->type = OBJ_FUN;
     cur->data = to_add;
-    return (cur);
+    return (to_add);
 }
 
 obj_t* add_obj_tilemap(cn_t *cn, vec3 pos, size_t w, size_t h)

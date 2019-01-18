@@ -10,5 +10,6 @@
 
 void exit_full_custom(void);
 void* malloc_safe(size_t size);
+float randf(void);
 
 #endif

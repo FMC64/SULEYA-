@@ -7,18 +7,14 @@
 
 #include "headers.h"
 
-void add_phys_col(vec2 to_add, vec2 *acc)
-{
-    acc->x += to_add.x * 1.1f;
-    acc->y += to_add.y * 1.1f;
-}
-
-static void test_col_set(cn_t *cn, objset_t set, vec2 *vec)
+static void test_col_set(obj_fun_t *fun, objset_t set, vec2 *vec)
 {
     for (size_t i = 0; i < set.count; i++) {
+        if (fun == set.obj[i].data)
+            continue;
         switch (set.obj[i].type) {
         case OBJ_FUN:
-            phys_fun(cn, set.obj[i].data, vec);
+            phys_fun(fun, set.obj[i].data, vec);
             break;
         default:
             break;
@@ -26,24 +22,44 @@ static void test_col_set(cn_t *cn, objset_t set, vec2 *vec)
     }
 }
 
-void physx(cn_t *cn)
+static void physx_fun(cn_t *cn, obj_fun_t *fun)
 {
     vec2 vec;
     vec2 vec_start;
 
-    phys_is_grounded(cn);
-    cn->player.speed.y += 30.0f * cn->win.framelen;
-    vec = (vec2){cn->player.speed.x * cn->win.framelen,
-    cn->player.speed.y * cn->win.framelen};
+    if (fun->is_static)
+        return;
+    phys_is_grounded(cn, fun);
+    fun->speed.y += 30.0f * cn->win.framelen;
+    vec = (vec2){fun->speed.x * cn->win.framelen,
+    fun->speed.y * cn->win.framelen};
     vec_start = vec;
     for (size_t i = 0; i < cn->objs.count; i++) {
-        if (cn->objs.set[i].z == cn->player.pos.z)
-            test_col_set(cn, cn->objs.set[i], &vec);
+        if (cn->objs.set[i].z == fun->pos.z)
+            test_col_set(fun, cn->objs.set[i], &vec);
     }
     if (vec.y - vec_start.y < 0.0f)
-        cn->player.is_grounded = 1;
-    cn->player.speed.x = vec.x / cn->win.framelen;
-    cn->player.speed.y = vec.y / cn->win.framelen;
-    cn->player.pos.x += cn->player.speed.x * cn->win.framelen;
-    cn->player.pos.y += cn->player.speed.y * cn->win.framelen;
+        fun->is_grounded = 1;
+    fun->speed.x = vec.x / cn->win.framelen;
+    fun->speed.y = vec.y / cn->win.framelen;
+    fun->pos.x += fun->speed.x * cn->win.framelen;
+    fun->pos.y += fun->speed.y * cn->win.framelen;
+}
+
+static void physx_obj(cn_t *cn, obj_t *obj)
+{
+    switch (obj->type) {
+    case OBJ_FUN:
+        physx_fun(cn, obj->data);
+        break;
+    default:
+        break;
+    }
+}
+
+void physx(cn_t *cn)
+{
+    for (size_t i = 0; i < cn->objs.count; i++)
+        for (size_t j = 0; j < cn->objs.set[i].count; j++)
+            physx_obj(cn, &cn->objs.set[i].obj[j]);
 }

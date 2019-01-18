@@ -16,8 +16,6 @@ static float get_nearest_framerate(float framelen)
     size_t min_delta_ndx = 0;
     float currate = 1.0 / framelen;
 
-    //return (60.0f);
-    printf("currate: %f\n", currate);
     for (size_t i = 0; i < WIN_REFRESH_NB; i++) {
         delta = rate[i] - currate;
         if (delta < 0.0f)
@@ -60,23 +58,22 @@ static float get_framerate(cn_t *cn)
 
 int init_win(cn_t *cn)
 {
-    cn->win.w = 1920;
-    cn->win.h = 1080;
-    cn->win.whalf = (float)cn->win.w / 2.0f;
-    cn->win.hhalf = (float)cn->win.h / 2.0f;
-    cn->win.window = sfRenderWindow_create((sfVideoMode){cn->win.w,
-    cn->win.h, 32},
+    sfVector2u size;
+
+    cn->win.window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32},
     "SULEYA-", sfFullscreen | sfClose, NULL);
     if (cn->win.window == NULL)
         return (0);
     sfWindow_setVerticalSyncEnabled((sfWindow*)cn->win.window, sfTrue);
     cn->win.framerate = get_framerate(cn);
     cn->win.framelen = 1.0f / cn->win.framerate;
-    sfRenderWindow_setFramerateLimit(cn->win.window,
-    (uint32_t)cn->win.framerate);
-    printf("framerate: %f\nframelen: %f\n", cn->win.framerate, cn->win.framelen);
     cn->win.frame = 0;
     cn->win.clock = sfClock_create();
     sfClock_restart(cn->win.clock);
+    size = sfWindow_getSize((sfWindow*)cn->win.window);
+    cn->win.w = size.x;
+    cn->win.h = size.y;
+    cn->win.whalf = (float)cn->win.w / 2.0f;
+    cn->win.hhalf = (float)cn->win.h / 2.0f;
     return (1);
 }

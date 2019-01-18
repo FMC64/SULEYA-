@@ -15,7 +15,8 @@ typedef enum {
 
 typedef struct {
     uint64_t count;
-    vec2 vertex[4];
+    vec2 vertex[5];
+    vec2 norm[4];
 } mesh_t;
 
 typedef struct {
@@ -49,10 +50,24 @@ typedef struct {
 
 typedef struct {
     int is_collider;
+    int is_static;
+    int is_grounded;
+    int is_destroyable;
+    int is_sprite_linked;
+    float friction;
+    float bounce;
     mesh_t mesh;
     vec3 pos;
+    vec3 speed;
     vec2 size;
     sprite_t *sprite;
+    float life;
+    sfClock *clock;
 } obj_fun_t;
+
+typedef struct {
+    uint64_t count;
+    rect_t rect[128];
+} split_rects_t;
 
 #endif

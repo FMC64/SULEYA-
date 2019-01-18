@@ -23,17 +23,18 @@ vec2 norm, vec2 *vectrue)
     vectrue->y -= to_sub.y * 1.1;
 }
 
-void phys_fun_funtop(vec2 *point, vec2 to_ext, vec2 *vec)
+void phys_fun_funtop(mesh_t *fun, vec2 to_ext, vec2 *vec)
 {
     seg2 seg = {{to_ext, {to_ext.x - vec->x, to_ext.y - vec->y}}};
+    seg2 seg_fun;
     float ta;
     float tb;
 
-    for (size_t i = 0; i < 4; i++) {
-        inter2d(seg, (seg2){{point[i], point[i + 1]}}, &ta, &tb);
+    for (size_t i = 0; i < fun->count; i++) {
+        seg_fun = (seg2){{fun->vertex[i], fun->vertex[i + 1]}};
+        inter2d(seg, seg_fun, &ta, &tb);
         if (((ta >= 0.0f) && (ta <= 1.0f)) && ((tb >= 0.0f) && (tb <= 1.0f))) {
-            phys_fun_funtop_inter_found(seg, (seg2){{point[i], point[i + 1]}},
-            get_p_norm(i), vec);
+            phys_fun_funtop_inter_found(seg, seg_fun, fun->norm[i], vec);
             seg = (seg2){{to_ext, {to_ext.x - vec->x, to_ext.y - vec->y}}};
         }
     }

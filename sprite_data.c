@@ -9,7 +9,8 @@
 
 static const sprite_data_descriptor_t sprite_data[] = {
     {S_TREE, "res/tree.png"},
-    {S_PEBBLES_MOD, "res/pebbles_mod.png"},
+    {S_PEBBLES_MOD, "res/pebbles.jpg"},
+    {S_PEBBLES_MOD_HALF, "res/pebbles_mod.png"},
     {S_SKY, "res/sky.png"},
     {S_BENDY, "res/bendy_blurred.png"},
     {0, NULL}
@@ -21,7 +22,10 @@ static const sprite_anim_data_descriptor_t sprite_anim_data[] = {
     {S_BASHO_IDLE, "res/anim/basho_idle/sheet.png", 2, 2.0f},
     {S_BASHO_IDLE_L, "res/anim/basho_idle/sheet_l.png", 2, 2.0f},
     {S_BASHO_AIR, "res/anim/basho_air/sheet.png", 4, 0.1f},
-    {S_BASHO_AIR_L, "res/anim/basho_air/sheet_l.png", 4, 0.1f}
+    {S_BASHO_AIR_L, "res/anim/basho_air/sheet_l.png", 4, 0.1f},
+    {S_BASHO_PUNCH, "res/anim/basho_punch/sheet.png", 6, 0.05f},
+    {S_BASHO_PUNCH_L, "res/anim/basho_punch/sheet_l.png", 6, 0.05f},
+    {0, NULL, 0, 0.0f}
 };
 
 void load_sprites(cn_t *cn)

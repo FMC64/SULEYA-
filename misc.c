@@ -23,3 +23,8 @@ void* malloc_safe(size_t size)
         exit_full_custom();
     return (res);
 }
+
+float randf(void)
+{
+    return ((float)rand() / (float)RAND_MAX);
+}

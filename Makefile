@@ -21,7 +21,7 @@ $(OUTPUT): $(OBJ) $(MAINOBJ)
 	gcc $(CFLAGS) $(CPPFLAGS) $(OBJ) $(MAINOBJ) $(LDLIB) -o $(OUTPUT)
 
 clean:
-	rm -f $(OBJ) $(TESTOBJ)
+	rm -f $(MAINOBJ) $(OBJ) $(TESTOBJ)
 
 fclean: clean
 	rm -f $(OUTPUT) $(TEST)

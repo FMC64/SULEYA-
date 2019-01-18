@@ -7,7 +7,7 @@
 
 #include "headers.h"
 
-#define const static
+#include "global_shenanigans.h"
 
 const sfRenderStates states[RENDER_SLOTS];
 const size_t render_count = 0;

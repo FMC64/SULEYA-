@@ -7,71 +7,64 @@
 
 #include "headers.h"
 
-vec2 get_p_norm(size_t i)
-{
-    vec2 norm[4] = {{0.0f, -1.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {-1.0f, 0.0f}};
-
-    return (norm[i]);
-}
-
-vec2 get_fun_norm(seg2 seg)
-{
-    float cos_a = cosf(-M_PI / 2.0f);
-    float sin_a = sinf(-M_PI / 2.0f);
-    vec2 tmp = (vec2){seg.p[1].x - seg.p[0].x, seg.p[1].y - seg.p[0].y};
-    vec2 rotated;
-
-    tmp = vec2_normalize(tmp);
-    rotated.x = tmp.x * cos_a - tmp.y * sin_a;
-    rotated.y = tmp.x * sin_a + tmp.y * cos_a;
-    return (rotated);
-}
-
-static void phys_fun_ptofun_inter_found(seg2 seg, seg2 fun_line,
+static void phys_fun_ptofun_inter_found(p_in_geom_t in, seg2 fun_line,
 vec2 norm, vec2 *vec)
 {
+    vec2 to_add;
     float t;
 
     if (vec2_dot(*vec, norm) >= 0.0f)
         return;
-    norm = vec2_add(seg.p[1], norm);
-    inter2d((seg2){{seg.p[1], norm}}, fun_line, NULL, &t);
-    add_phys_col(vec2_sub(seg2_interp(fun_line, t), seg.p[1]), vec);
+    norm = vec2_add(in.p, norm);
+    inter2d((seg2){{in.p, norm}}, fun_line, NULL, &t);
+    to_add = vec2_sub(seg2_interp(fun_line, t), in.p);
+    vec->x += to_add.x * in.bounce;
+    vec->y += to_add.y * in.bounce;
 }
 
-static void phys_fun_ptofun(vec2 *point, vec2 to_ext, vec2 *vec)
+static void phys_fun_ptofun(mesh_t *obs, vec2 to_ext, vec2 *vec, float bounce)
 {
     seg2 seg = {{to_ext, {to_ext.x + vec->x, to_ext.y + vec->y}}};
+    seg2 seg_obs;
     float ta;
     float tb;
 
-    for (size_t i = 0; i < 3; i++) {
-        inter2d(seg, (seg2){{point[i], point[i + 1]}}, &ta, &tb);
+    for (size_t i = 0; i < obs->count; i++) {
+        seg_obs = (seg2){{obs->vertex[i], obs->vertex[i + 1]}};
+        inter2d(seg, seg_obs, &ta, &tb);
         if (((ta >= 0.0f) && (ta <= 1.0f)) && ((tb >= 0.0f) && (tb <= 1.0f))) {
-            phys_fun_ptofun_inter_found(seg, (seg2){{point[i], point[i + 1]}},
-            get_fun_norm((seg2){{point[i], point[i + 1]}}), vec);
+            phys_fun_ptofun_inter_found((p_in_geom_t){seg.p[1], bounce},
+            seg_obs, obs->norm[i], vec);
             seg = (seg2){{to_ext, {to_ext.x + vec->x, to_ext.y + vec->y}}};
         }
     }
 }
 
-void phys_fun(cn_t *cn, obj_fun_t *fun, vec2 *vec)
+static mesh_t get_fun_mesh(obj_fun_t *fun)
 {
-    vec2 player_point[5] = {{cn->player.pos.x, cn->player.pos.y},
-    {cn->player.pos.x + cn->player.size.x, cn->player.pos.y},
-    {cn->player.pos.x + cn->player.size.x, cn->player.pos.y +
-    cn->player.size.y},
-    {cn->player.pos.x, cn->player.pos.y + cn->player.size.y}};
-    vec2 fun_point[4] = {{fun->pos.x + fun->size.x, fun->pos.y},
-    {fun->pos.x + fun->size.x, fun->pos.y + fun->size.y},
-    {fun->pos.x, fun->pos.y + fun->size.y}};
+    mesh_t res;
 
-    if (!fun->is_collider)
+    for (size_t i = 0; i < fun->mesh.count; i++) {
+        res.vertex[i] = (vec2){fun->pos.x + fun->mesh.vertex[i].x,
+        fun->pos.y + fun->mesh.vertex[i].y};
+        res.norm[i] = fun->mesh.norm[i];
+    }
+    res.count = fun->mesh.count;
+    res.vertex[res.count] = res.vertex[0];
+    return (res);
+}
+
+void phys_fun(obj_fun_t *fun, obj_fun_t *obs, vec2 *vec)
+{
+    mesh_t fun_points;
+    mesh_t obs_points;
+
+    if (!obs->is_collider)
         return;
-    player_point[4] = player_point[0];
-    fun_point[3] = fun_point[0];
-    for (size_t i = 0; i < 4; i++)
-        phys_fun_ptofun(fun_point, player_point[i], vec);
-    for (size_t i = 0; i < 3; i++)
-        phys_fun_funtop(player_point, fun_point[i], vec);
+    fun_points = get_fun_mesh(fun);
+    obs_points = get_fun_mesh(obs);
+    for (size_t i = 0; i < fun_points.count; i++)
+        phys_fun_ptofun(&obs_points, fun_points.vertex[i], vec, fun->bounce);
+    for (size_t i = 0; i < obs_points.count; i++)
+        phys_fun_funtop(&fun_points, obs_points.vertex[i], vec);
 }

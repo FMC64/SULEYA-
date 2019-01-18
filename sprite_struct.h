@@ -15,8 +15,11 @@ typedef enum {
     S_BASHO_IDLE_L,
     S_BASHO_AIR,
     S_BASHO_AIR_L,
+    S_BASHO_PUNCH,
+    S_BASHO_PUNCH_L,
     S_TREE,
     S_PEBBLES_MOD,
+    S_PEBBLES_MOD_HALF,
     S_SKY,
     S_BENDY,
     S_MAX

@@ -8,6 +8,7 @@
 #ifndef _SPRITE_H
 #define _SPRITE_H
 
+sprite_t* dup_sprite(sprite_t *src);
 sprite_t* create_sprite(const char *path);
 void destroy_sprite(sprite_t *sprite);
 

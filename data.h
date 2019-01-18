@@ -13,6 +13,11 @@
 #include "obj_struct.h"
 #include "input_struct.h"
 
+typedef enum {
+    PLAYER_REG,
+    PLAYER_PUNCHING
+} player_state_t;
+
 typedef struct {
     uint32_t w;
     uint32_t h;
@@ -26,14 +31,13 @@ typedef struct {
 } win_t;
 
 typedef struct {
-    vec3 pos;
-    vec3 speed;
     float maxsx;
-    vec2 size;
-    int is_grounded;
-    sprite_t *sprite;
     int is_right;
     int is_moving;
+    player_state_t state;
+    int has_punched;
+    sfClock *clock;
+    obj_fun_t *fun;
 } player_t;
 
 typedef struct {

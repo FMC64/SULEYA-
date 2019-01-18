@@ -7,6 +7,19 @@
 
 #include "headers.h"
 
+sprite_t* dup_sprite(sprite_t *src)
+{
+    sprite_t *res = (sprite_t*)malloc_safe(sizeof(sprite_t));
+
+    *res = *src;
+    res->sprite = sfSprite_create();
+    res->framecount = 1;
+    if (res->sprite == NULL)
+        exit_full_custom();
+    sfSprite_setTexture(res->sprite, src->texture, sfTrue);
+    return (res);
+}
+
 sprite_t* create_sprite(const char *path)
 {
     sprite_t *res = (sprite_t*)malloc_safe(sizeof(sprite_t));

@@ -57,13 +57,13 @@ obj_t* get_obj_slot(cn_t *cn, float z)
 void free_obj(obj_t *obj)
 {
     switch (obj->type) {
-        case OBJ_FUN:
+    case OBJ_FUN:
         free_obj_fun(obj->data);
         break;
-        case OBJ_TILEMAP:
+    case OBJ_TILEMAP:
         free_obj_tilemap(obj->data);
         break;
-        default:
+    default:
         break;
     }
 }

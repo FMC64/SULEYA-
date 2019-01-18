@@ -14,6 +14,7 @@
 
 cn_t* init(void);
 int init_win(cn_t *cn);
+void init_player(cn_t *cn);
 void init_obj(cn_t *cn);
 
 void quit(cn_t *cn);

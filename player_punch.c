@@ -34,11 +34,12 @@ static void punch_set(cn_t *cn, uint64_t i, rect_t trigger)
 
 void player_punch(cn_t *cn)
 {
-    rect_t trigger = {cn->player.fun->pos.x, cn->player.fun->pos.y + 0.7f,
+    rect_t trigger = {cn->player.fun->pos.x - 0.3f,
+    cn->player.fun->pos.y + 0.7f,
     cn->player.fun->size.x / 2.0f, cn->player.fun->size.y / 1.4f};
 
     if (cn->player.is_right)
-        trigger.x += cn->player.fun->size.x / 2.0f;
+        trigger.x += cn->player.fun->size.x / 2.0f + 0.3f;
     for (size_t i = 0; i < cn->objs.count; i++)
         if (cn->objs.set[i].z == cn->player.fun->pos.z)
             punch_set(cn, i, trigger);

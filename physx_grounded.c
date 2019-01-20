@@ -29,5 +29,7 @@ void phys_is_grounded(cn_t *cn, obj_fun_t *fun)
         else if (fun->speed.x < 0.0f)
             phys_is_grounded_neg_sp(cn, fun);
         fun->is_grounded = 0;
-    }
+        fun->last_grounded = 0;
+    } else
+        fun->last_grounded++;
 }

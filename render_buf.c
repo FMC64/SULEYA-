@@ -23,6 +23,8 @@ void init_render_buf(void)
 void render_sprite(cn_t *cn, sprite_t *sprite, sfIntRect *rectangle,
 sfTransform *trans)
 {
+    if (render_count == RENDER_SLOTS)
+        return;
     if (rectangle != NULL)
         sfSprite_setTextureRect(sprite->sprite, *rectangle);
     if (trans != NULL)

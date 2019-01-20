@@ -39,6 +39,7 @@ typedef struct {
     int is_moving;
     player_state_t state;
     int has_punched;
+    int can_jump;
     sfClock *clock;
     obj_fun_t *fun;
     vec3 speedprev;
@@ -68,6 +69,7 @@ typedef struct {
     int is_gameover;
     int has_won;
     float end;
+    float death_barrier;
 } misc_t;
 
 typedef struct {

@@ -52,6 +52,7 @@ typedef struct {
     int is_collider;
     int is_static;
     int is_grounded;
+    uint64_t last_grounded;
     int is_destroyable;
     int is_sprite_linked;
     float friction;

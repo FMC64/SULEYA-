@@ -61,6 +61,8 @@ void phys_fun(obj_fun_t *fun, obj_fun_t *obs, vec2 *vec)
 
     if (!obs->is_collider)
         return;
+    if (fabsf(fun->pos.x - obs->pos.x) > 50.0f)
+        return;
     fun_points = get_fun_mesh(fun);
     obs_points = get_fun_mesh(obs);
     for (size_t i = 0; i < fun_points.count; i++)

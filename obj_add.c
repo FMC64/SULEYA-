@@ -12,6 +12,7 @@ static void obj_fun_init_bools(obj_fun_t *fun)
     fun->is_collider = 1;
     fun->is_static = 1;
     fun->is_grounded = 0;
+    fun->last_grounded = ~0ULL;
     fun->is_destroyable = 0;
     fun->is_sprite_linked = 0;
 }

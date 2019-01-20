@@ -36,6 +36,14 @@ typedef enum {
     S_FONT_SFAMICOM,
     S_GAMEOVER,
     S_GAMEOVER_WIN,
+    S_FLOOR1,
+    S_FLOOR2,
+    S_BOX,
+    S_BRIDGE,
+    S_BARRIER,
+    S_DEPOT_BG,
+    S_DITHER_DOWN,
+    S_CABLE,
     S_MAX
 } sprite_data_t;
 
@@ -43,6 +51,8 @@ typedef struct {
     size_t truew;
     size_t w;
     size_t h;
+    float scalex;
+    float scaley;
     sfSprite *sprite;
     sfTexture *texture;
     uint32_t frame;
@@ -62,6 +72,13 @@ typedef struct {
     sprite_data_t index;
     const char *path;
 } sprite_data_descriptor_t;
+
+typedef struct {
+    sprite_data_t index;
+    const char *path;
+    float scalex;
+    float scaley;
+} sprite_scaled_data_descriptor_t;
 
 typedef struct {
     sprite_data_t index;

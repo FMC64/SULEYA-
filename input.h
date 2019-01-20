@@ -17,4 +17,3 @@ void get_raw_input(cn_t *cn);
 void process_input(cn_t *cn);
 
 #endif
-

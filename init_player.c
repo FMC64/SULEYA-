@@ -25,6 +25,7 @@ void reset_player(cn_t *cn)
     cn->player.is_moving = 0;
     cn->player.state = PLAYER_REG;
     cn->player.has_punched = 0;
+    cn->player.can_jump = 0;
     cn->player.fun->is_collider = 0;
     cn->player.fun->is_static = 0;
     cn->player.fun->friction = 50.0f;

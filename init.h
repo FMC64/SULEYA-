@@ -12,6 +12,7 @@
 
 #define WIN_REFRESH_NB 7
 
+void init_cam(cn_t *cn);
 cn_t* init(void);
 int init_win(cn_t *cn);
 void init_player(cn_t *cn);
@@ -30,5 +31,7 @@ void init_playlist(cn_t *cn);
 
 uint64_t get_highscore(void);
 void set_highscore(uint64_t score);
+
+void init_misc(cn_t *cn);
 
 #endif

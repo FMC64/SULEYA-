@@ -20,6 +20,17 @@ sprite_t* dup_sprite(sprite_t *src)
     return (res);
 }
 
+static void sprite_set_default_values(sprite_t *sprite)
+{
+    sfTexture_setRepeated(sprite->texture, sfTrue);
+    sprite->frame = -1;
+    sprite->framecount = 1;
+    sprite->framelen = 1.0f;
+    sprite->clock = NULL;
+    sprite->scalex = 0.0f;
+    sprite->scaley = 0.0f;
+}
+
 sprite_t* create_sprite(const char *path)
 {
     sprite_t *res = (sprite_t*)malloc_safe(sizeof(sprite_t));
@@ -32,11 +43,8 @@ sprite_t* create_sprite(const char *path)
     res->truew = vec2.x;
     res->w = vec2.x;
     res->h = vec2.y;
+    sprite_set_default_values(res);
     res->sprite = sfSprite_create();
-    res->frame = -1;
-    res->framecount = 1;
-    res->framelen = 1.0f;
-    res->clock = NULL;
     if (res->sprite == NULL)
         exit_full_custom();
     sfSprite_setTexture(res->sprite, res->texture, sfTrue);

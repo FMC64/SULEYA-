@@ -8,11 +8,11 @@
 #include "headers.h"
 
 static const sound_data_descriptor_t sound_data[] = {
+    {SD_FLAME, "res/snd/sfx/spacex_test.ogg"},
     {0, NULL}
 };
 
 static const sound_data_relative_descriptor_t sound_rel_data[] = {
-    {SD_FLAME, "res/snd/sfx/spacex_test.ogg", 100000.0f},
     {0, NULL, 0.0f}
 };
 

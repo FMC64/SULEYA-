@@ -15,5 +15,8 @@ void usage(void)
     "  [nothing]  -  just play the game\n"
     "  [MAP]      -  play with the game ( ͡° ͜ʖ ͡°)\n\n"
     "USER INTERACTIONS\n"
-    "  - being able to actually play through the game\n");
+    "  - being able to actually play through the game\n\n"
+    "FEATURES:\n"
+    "  - game\n"
+    "  - hand-made sprites :3\n");
 }

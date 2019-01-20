@@ -14,7 +14,7 @@ void init_obj(cn_t *cn)
     cn->objs.set = NULL;
 }
 
-static void init_cam(cn_t *cn)
+void init_cam(cn_t *cn)
 {
     cn->cam.pos = (vec3){0.0f, 0.0f, -1.0f};
     cn->cam.shift = (vec3){0.0f, 0.0f, 0.0f};
@@ -39,10 +39,7 @@ cn_t* init(void)
     init_ennemy(res);
     init_player(res);
     init_playlist(res);
-    res->misc.highscore = get_highscore();
-    res->gen.do_gen = get_map() == NULL;
-    res->misc.is_gameover = 0;
-    srand(time(NULL));
+    init_misc(res);
     return (res);
 }
 

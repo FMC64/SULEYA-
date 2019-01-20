@@ -32,18 +32,20 @@ void cam_ac(cn_t *cn)
     if ((speed >= speedprev) && (speed > 0.1f))
         cn->cam.shift.x += cn->win.framelen * 2.0f;
     else
-        cn->cam.shift.x -= cn->win.framelen * 5.0f;
-    if (cn->cam.shift.x > 6.0f)
-        cn->cam.shift.x = 6.0f;
+        cn->cam.shift.x -= cn->win.framelen * 2.0f;
+    if (cn->cam.shift.x > (cn->player.maxsx / 14.0f) * 6.0f)
+        cn->cam.shift.x = (cn->player.maxsx / 14.0f) * 6.0f;
     if (cn->cam.shift.x < 0.0f)
         cn->cam.shift.x = 0.0f;
     cn->cam.pos = cn->player.fun->pos;
-    cn->cam.pos.z -= 8.0f + cn->cam.shift.x;
+    cn->cam.pos.z -= 12.0f + cn->cam.shift.x;
     cn->cam.pos.x += cn->player.fun->size.x / 2.0f;
 }
 
 static void game_stuff(cn_t *cn)
 {
+    if (cn->gen.do_gen && (cn->gen.x - cn->player.fun->pos.x < 100.0f))
+        gen_next(cn);
     get_raw_input(cn);
     if (!cn->misc.is_gameover) {
         process_input(cn);
@@ -63,19 +65,6 @@ static void game_stuff(cn_t *cn)
 void game(cn_t *cn)
 {
     reset(cn);
-    while (poll_events(cn)) {
+    while (poll_events(cn))
         game_stuff(cn);
-        if (!cn->gen.do_gen)
-            continue;
-        if (cn->gen.obj->pos.x - cn->player.fun->pos.x < 100.0f) {
-            cn->gen.obj = gen_ter(cn, cn->gen.obj->pos,
-            cn->gen.obj->size, cn->sprite[S_PEBBLES_MOD]);
-            gen_pub(cn, cn->sprite[S_BENDY], cn->sprite[S_TREE],
-            cn->gen.obj->pos);
-        }
-        if (cn->gen.lastsky->pos.x - cn->player.fun->pos.x <
-            1000.0f) {
-            cn->gen.lastsky = gen_sky(cn, cn->gen.lastsky, cn->sprite[S_SKY]);
-        }
-    }
 }

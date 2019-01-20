@@ -5,6 +5,7 @@ Entities have a 3D coord, the player spawns at 0,-20,0
 One unit = one meter
 Entities are rectangles in 3D space with a width and a height
 
+Entity's position represents its top-left corner
 Place an entity on the player's Z position (0 by default) to make an obstacle
 Place entities around on this axis to build your 3D scene.
 

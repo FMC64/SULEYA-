@@ -41,31 +41,17 @@ static void update_player_sprite(cn_t *cn)
         update_player_sprite_gr_air_run_idle(cn);
 }
 
-static void update_player_maxsp(cn_t *cn)
+static void update_player_maxsp_score(cn_t *cn)
 {
-    if (cn->player.fun->speed.x < cn->player.maxsx) {
-        cn->player.maxsx = cn->player.fun->speed.x;
-        if (cn->player.maxsx < 14.0f)
-            cn->player.maxsx = 14.0f;
-    }
-    if (cn->player.fun->speed.x > -cn->player.maxsx) {
-        cn->player.maxsx = cn->player.fun->speed.x;
-        if (cn->player.maxsx < 14.0f)
-            cn->player.maxsx = 14.0f;
-    }
-}
-
-static void update_score(cn_t *cn)
-{
-    if (cn->player.fun->pos.x > (float)cn->misc.score) {
+    if (cn->player.maxsx < cn->flame.speed.x * 1.5f)
+        cn->player.maxsx = cn->flame.speed.x * 1.5f;
+    if (cn->player.fun->pos.x > (float)cn->misc.score)
         cn->misc.score = cn->player.fun->pos.x;
-    }
 }
 
-void update_player(cn_t *cn)
+static void update_player_punch(cn_t *cn)
 {
     float time;
-
     if (cn->player.state == PLAYER_PUNCHING) {
         time = sfTime_asSeconds(sfClock_getElapsedTime(cn->player.clock));
         if (time >= (float)cn->sprite[S_BASHO_PUNCH_L]->framecount *
@@ -77,10 +63,15 @@ void update_player(cn_t *cn)
             player_punch(cn);
         }
     }
-    update_player_maxsp(cn);
-    update_score(cn);
+}
+
+void update_player(cn_t *cn)
+{
+    update_player_punch(cn);
+    update_player_maxsp_score(cn);
     update_player_sprite(cn);
-    if (cn->player.fun->pos.x < cn->flame.pos.x)
+    if ((cn->player.fun->pos.x < cn->flame.pos.x) ||
+    (cn->player.fun->pos.y > cn->misc.death_barrier))
         gameover(cn, 0);
     if ((!cn->gen.do_gen) && (cn->player.fun->pos.x > cn->misc.end))
         gameover(cn, 1);

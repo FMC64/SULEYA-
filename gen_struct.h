@@ -8,10 +8,22 @@
 #ifndef _GEN_STRUCT_H
 #define _GEN_STRUCT_H
 
+typedef enum {
+    BIOME_DEPOT
+} gen_biome_t;
+
+typedef struct {
+    int is_bridge;
+    float light;
+} gen_depot_t;
+
 typedef struct {
     int do_gen;
-    obj_fun_t *obj;
-    obj_fun_t *lastsky;
+    gen_depot_t depot;
+    gen_biome_t biome;
+    float x;
+    float y;
+    float bg;
 } gen_t;
 
 #endif

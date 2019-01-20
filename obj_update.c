@@ -7,11 +7,19 @@
 
 #include "headers.h"
 
+static int is_obj_flame(cn_t *cn, obj_fun_t *fun)
+{
+    for (size_t i = 0; i < FLAME_LAYERS; i++)
+        if (fun == cn->flame.flame_obj[i])
+            return (1);
+    return (0);
+}
+
 static void update_obj_fun(cn_t *cn, obj_fun_t *fun, objset_t *set, uint64_t i)
 {
     if (((fun->pos.x + fun->size.x) < (cn->flame.pos.x - 200.0f)) ||
     (fun->pos.y > 1000.0f)) {
-        if (fun == cn->flame.flame_obj)
+        if (is_obj_flame(cn, fun))
             return;
         destroy_obj(set, i);
         return;

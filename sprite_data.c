@@ -26,7 +26,19 @@ static const sprite_data_descriptor_t sprite_data[] = {
     {S_FONT_SFAMICOM, "res/fnt/sfamicom.png"},
     {S_GAMEOVER, "res/misc/gameover.png"},
     {S_GAMEOVER_WIN, "res/misc/gameover_win.png"},
+    {S_FLOOR1, "res/world/floor1.png"},
+    {S_BOX, "res/world/box.png"},
+    {S_DEPOT_BG, "res/world/depot_bg.png"},
+    {S_DITHER_DOWN, "res/world/dither_down.png"},
+    {S_CABLE, "res/world/cable.png"},
     {0, NULL}
+};
+
+static const sprite_scaled_data_descriptor_t sprite_scaled[] = {
+    {S_FLOOR2, "res/world/floor2.png", 0.75f, 0.75f},
+    {S_BRIDGE, "res/world/bridge.png", 1.0f, 1.0f},
+    {S_BARRIER, "res/world/barrier.png", 0.25f, 1.0f},
+    {0, NULL, 0.0f, 0.0f}
 };
 
 static const sprite_anim_data_descriptor_t sprite_anim_data[] = {
@@ -48,6 +60,12 @@ void load_sprites(cn_t *cn)
         cn->sprite[i] = NULL;
     for (size_t i = 0; sprite_data[i].path != NULL; i++)
         cn->sprite[sprite_data[i].index] = create_sprite(sprite_data[i].path);
+    for (size_t i = 0; sprite_scaled[i].path != NULL; i++) {
+        cn->sprite[sprite_scaled[i].index] =
+        create_sprite(sprite_scaled[i].path);
+        cn->sprite[sprite_scaled[i].index]->scalex = sprite_scaled[i].scalex;
+        cn->sprite[sprite_scaled[i].index]->scaley = sprite_scaled[i].scaley;
+    }
     for (size_t i = 0; sprite_anim_data[i].path != NULL; i++) {
         cn->sprite[sprite_anim_data[i].index] =
         create_sprite(sprite_anim_data[i].path);

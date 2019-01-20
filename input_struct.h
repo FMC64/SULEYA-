@@ -21,6 +21,7 @@ typedef enum {
 typedef struct {
     sfKeyCode binding[KEY_COUNT];
     char keystate[KEY_COUNT];
+    char prev[KEY_COUNT];
 } input_t;
 
 #endif

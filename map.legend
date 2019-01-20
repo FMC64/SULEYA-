@@ -1,0 +1,56 @@
+[MAP FORMAT]
+
+
+Entities have a 3D coord, the player spawns at 0,-20,0
+One unit = one meter
+Entities are rectangles in 3D space with a width and a height
+
+Place an entity on the player's Z position (0 by default) to make an obstacle
+Place entities around on this axis to build your 3D scene.
+
+X axis: from left to right
+Y axis: from up to down
+Z axis: from near to far
+
+The camera is aligned with the Z axis.
+
+
+One line = one entity in world
+The game is won when the player reaches the furthest entity
+
+pos_x, pos_y, pos_z; w, h; sprite_index; is_destroyable
+^       ^       ^    ^  ^       ^               ^
+|       |       |    |  |       |               |
+floats-------------------       |               |
+(don't add "f" suffix)          |               |
+                                |               |
+positive integers--------------------------------
+
+
+Sprites indexes are defined in sprite_struct.h
+Some examples of filled textures:
+    11 - sky
+    17 - space
+
+Don't hesitate to add your own sprites before S_MAX in the sprite_data_t enum,
+in sprite_date.c you'll find examples showing you how to set a path for the
+sprite, and even set an amount of frames and the length of each frame to make
+some animations.
+
+
+Map example:
+1, 2 , 0; 300, 4; 10; 5
+0, 15, 0; 300, 4; 10; 1
+0, -15, 0; 10, 5; 11; 1
+12, -15, 0; 10, 6; 17; 0
+12.33, -18, 0; 1.2, 2.5; 17; 1
+-1100, -650, 1000; 2500, 1250; 11; 0
+
+
+I should maybe add support for custom meshes for flexible collision,
+and all the obj_fun flags but who cares making their own map
+in a procedurally-generated game ?
+
+I would suggest messing around with the generator's magic numbers instead !
+Or adding other generating stuff..
+After all, nobody would manually generate a whole level ^^

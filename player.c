@@ -55,6 +55,13 @@ static void update_player_maxsp(cn_t *cn)
     }
 }
 
+static void update_score(cn_t *cn)
+{
+    if (cn->player.fun->pos.x > (float)cn->misc.score) {
+        cn->misc.score = cn->player.fun->pos.x;
+    }
+}
+
 void update_player(cn_t *cn)
 {
     float time;
@@ -71,5 +78,10 @@ void update_player(cn_t *cn)
         }
     }
     update_player_maxsp(cn);
+    update_score(cn);
     update_player_sprite(cn);
+    if (cn->player.fun->pos.x < cn->flame.pos.x)
+        gameover(cn, 0);
+    if ((!cn->gen.do_gen) && (cn->player.fun->pos.x > cn->misc.end))
+        gameover(cn, 1);
 }

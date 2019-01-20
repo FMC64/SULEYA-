@@ -75,5 +75,6 @@ int init_win(cn_t *cn)
     cn->win.h = size.y;
     cn->win.whalf = (float)cn->win.w / 2.0f;
     cn->win.hhalf = (float)cn->win.h / 2.0f;
+    sfWindow_setMouseCursorVisible((sfWindow*)cn->win.window, sfFalse);
     return (1);
 }

@@ -10,8 +10,11 @@
 
 #define CAM_MOVE 0.06f
 
+#define AIRSTRAFE 50.0f
+
 void init_input(cn_t *cn);
-void poll_input(cn_t *cn);
+void get_raw_input(cn_t *cn);
+void process_input(cn_t *cn);
 
 #endif
 

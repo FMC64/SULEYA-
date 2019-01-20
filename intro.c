@@ -7,20 +7,13 @@
 
 #include "headers.h"
 
-static sfMusic* load_intro_music(void)
+static void load_intro_music(cn_t *cn)
 {
-    sfMusic *res = sfMusic_createFromFile("res/snd/intro.ogg");
-
-    if (res == NULL)
-        exit_full_custom();
-    sfMusic_play(res);
-    return (res);
+    play_music(cn, "res/snd/sfx/intro.ogg", 0);
 }
 
-static void end_intro(cn_t *cn, sfMusic *music, sfClock *clock)
+static void end_intro(cn_t *cn, sfClock *clock)
 {
-    sfMusic_stop(music);
-    sfMusic_destroy(music);
     sfClock_destroy(clock);
     free_objs(cn);
 }
@@ -36,21 +29,20 @@ static void update_scene(cn_t *cn, float time, obj_fun_t *logo)
 int intro(cn_t *cn)
 {
     sfClock *clock = sfClock_create();
-    sfMusic *music;
     float time;
     obj_fun_t *fun = add_obj_fun(cn, (vec3){-0.8, -0.45f, -2.0f},
     (vec2){1.6f, 0.9f}, cn->sprite[S_GAX]);
 
-    music = load_intro_music();
+    load_intro_music(cn);
     do {
         if (!poll_events(cn)) {
-            end_intro(cn, music, clock);
+            end_intro(cn, clock);
             return (0);
         }
         time = sfTime_asSeconds(sfClock_getElapsedTime(cn->render.clock));
         update_scene(cn, time, fun);
         render(cn);
     } while (time < 4.0f);
-    end_intro(cn, music, clock);
+    end_intro(cn, clock);
     return (1);
 }

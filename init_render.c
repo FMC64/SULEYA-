@@ -11,6 +11,9 @@ void init_render(cn_t *cn)
 {
     cn->render.is_dithering = 0;
     cn->render.clock = sfClock_create();
+    cn->render.render_score = 0;
+    cn->render.score_x = 16;
+    cn->render.score_y = 16;
 }
 
 void set_dithering(cn_t *cn, int is_fading, float time)

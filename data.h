@@ -10,8 +10,11 @@
 
 #include "mat.h"
 #include "sprite_struct.h"
+#include "sound_struct.h"
 #include "obj_struct.h"
 #include "input_struct.h"
+#include "ennemy_struct.h"
+#include "gen_struct.h"
 
 typedef enum {
     PLAYER_REG,
@@ -38,6 +41,7 @@ typedef struct {
     int has_punched;
     sfClock *clock;
     obj_fun_t *fun;
+    vec3 speedprev;
 } player_t;
 
 typedef struct {
@@ -53,7 +57,24 @@ typedef struct {
     float dithering_laps;
     int is_dither_done;
     sfClock *clock;
+    int render_score;
+    uint32_t score_x;
+    uint32_t score_y;
 } render_t;
+
+typedef struct {
+    uint64_t score;
+    uint64_t highscore;
+    int is_gameover;
+    int has_won;
+    float end;
+} misc_t;
+
+typedef struct {
+    uint64_t index;
+    sfMusic *current;
+    int is_active;
+} playlist_t;
 
 typedef struct {
     win_t win;
@@ -62,7 +83,12 @@ typedef struct {
     player_t player;
     input_t input;
     sprite_t *sprite[S_MAX];
+    sound_t sound[SD_MAX];
     render_t render;
+    flame_ocean_t flame;
+    playlist_t playlist;
+    gen_t gen;
+    misc_t misc;
 } cn_t;
 
 typedef sfRenderStates sfrenderstate_t;

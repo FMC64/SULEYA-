@@ -31,6 +31,11 @@ typedef enum {
     S_MENU_BG2,
     S_MENU_INC_BASHO,
     S_MENU_PRO_HINT,
+    S_FLAME_ANIM,
+    S_FLAME,
+    S_FONT_SFAMICOM,
+    S_GAMEOVER,
+    S_GAMEOVER_WIN,
     S_MAX
 } sprite_data_t;
 

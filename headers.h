@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <math.h>
 #include <time.h>
+#include <unistd.h>
 
 #include <SFML/Window.h>
 #include <SFML/Graphics.h>
@@ -30,7 +31,12 @@
 #include "physx.h"
 #include "game.h"
 #include "sprite.h"
+#include "sound.h"
 #include "player.h"
+#include "ennemy.h"
+#include "gen.h"
+#include "str.h"
+#include "map.h"
 #include "misc.h"
 
 #endif

@@ -9,6 +9,13 @@
 
 static void update_obj_fun(cn_t *cn, obj_fun_t *fun, objset_t *set, uint64_t i)
 {
+    if (((fun->pos.x + fun->size.x) < (cn->flame.pos.x - 200.0f)) ||
+    (fun->pos.y > 1000.0f)) {
+        if (fun == cn->flame.flame_obj)
+            return;
+        destroy_obj(set, i);
+        return;
+    }
     if (fun->life == 0.0f)
         return;
     if (dist3_sq(vec3_sub(fun->pos, cn->player.fun->pos)) > 400.0f) {

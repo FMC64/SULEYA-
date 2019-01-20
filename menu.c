@@ -7,22 +7,15 @@
 
 #include "headers.h"
 
-static sfMusic* load_menu_music(void)
+static void load_menu_music(cn_t *cn)
 {
-    sfMusic *res = sfMusic_createFromFile(
-    "res/snd/sid_sound-1dB의 마법.ogg");
-
-    if (res == NULL)
-        exit_full_custom();
-    sfMusic_setLoop(res, sfTrue);
-    sfMusic_play(res);
-    return (res);
+    play_music(cn,
+    "res/snd/music/sid_sound-1dB의 마법.ogg", 1);
 }
 
-static void end_menu(cn_t *cn, sfMusic *music, sfClock *clock)
+static void end_menu(cn_t *cn, sfClock *clock)
 {
-    sfMusic_stop(music);
-    sfMusic_destroy(music);
+    stop_music(cn);
     sfClock_destroy(clock);
     free_objs(cn);
 }
@@ -57,21 +50,20 @@ static void load_menu_stuff(cn_t *cn, obj_fun_t **inc_basho)
 int menu(cn_t *cn)
 {
     sfClock *clock = sfClock_create();
-    sfMusic *music;
     float time;
     obj_fun_t *inc_basho;
 
-    music = load_menu_music();
+    load_menu_music(cn);
     load_menu_stuff(cn, &inc_basho);
     while (menu_input(cn)) {
         if (!poll_events(cn)) {
-            end_menu(cn, music, clock);
+            end_menu(cn, clock);
             return (0);
         }
         time = sfTime_asSeconds(sfClock_getElapsedTime(cn->render.clock));
         update_scene(cn, time, inc_basho);
         render(cn);
     }
-    end_menu(cn, music, clock);
+    end_menu(cn, clock);
     return (1);
 }

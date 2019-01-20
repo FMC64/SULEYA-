@@ -61,6 +61,13 @@ void render_draw(cn_t *cn)
     for (size_t i = 0; i < cn->objs.count; i++)
         for (size_t j = 0; j < cn->objs.set[i].count; j++)
             render_obj(cn, &cn->objs.set[i].obj[j]);
+    if (cn->misc.is_gameover) {
+        render_sprite(cn, cn->sprite[cn->misc.has_won ?
+        S_GAMEOVER_WIN : S_GAMEOVER], NULL, NULL);
+        render_highscore(cn);
+    }
+    if (cn->render.render_score)
+        render_score(cn);
     render_fading(cn);
 }
 

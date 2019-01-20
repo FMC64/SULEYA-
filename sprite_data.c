@@ -1,4 +1,3 @@
-
 /*
 ** EPITECH PROJECT, 2018
 ** __pretty_much_accurate__runner
@@ -23,6 +22,10 @@ static const sprite_data_descriptor_t sprite_data[] = {
     {S_MENU_BG2, "res/menu/bg2.png"},
     {S_MENU_INC_BASHO, "res/menu/inc_basho.png"},
     {S_MENU_PRO_HINT, "res/menu/pro_hint.png"},
+    {S_FLAME, "res/world/flame.png"},
+    {S_FONT_SFAMICOM, "res/fnt/sfamicom.png"},
+    {S_GAMEOVER, "res/misc/gameover.png"},
+    {S_GAMEOVER_WIN, "res/misc/gameover_win.png"},
     {0, NULL}
 };
 
@@ -35,6 +38,7 @@ static const sprite_anim_data_descriptor_t sprite_anim_data[] = {
     {S_BASHO_AIR_L, "res/anim/basho_air/sheet_l.png", 4, 0.1f},
     {S_BASHO_PUNCH, "res/anim/basho_punch/sheet.png", 6, 0.05f},
     {S_BASHO_PUNCH_L, "res/anim/basho_punch/sheet_l.png", 6, 0.05f},
+    {S_FLAME_ANIM, "res/anim/flame/sheet.png", 3, 0.1f},
     {0, NULL, 0, 0.0f}
 };
 

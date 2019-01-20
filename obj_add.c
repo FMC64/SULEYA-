@@ -23,8 +23,8 @@ obj_fun_t* add_obj_fun(cn_t *cn, vec3 pos, vec2 size, sprite_t *sprite)
     obj_t *cur = get_obj_slot(cn, pos.z);
 
     obj_fun_init_bools(to_add);
-    to_add->friction = 10.0f;
-    to_add->bounce = 1.1f;
+    to_add->friction = 20.0f;
+    to_add->bounce = 1.2f;
     to_add->mesh = (mesh_t){4, {{0.0f, 0.0f}, {size.x, 0.0f}, {size.x, size.y},
     {0.0f, size.y}}, {{0.0f, -1.0f}, {1.0f, 0.0f}, {0.0f, 1.0f},
     {-1.0f, 0.0f}}};

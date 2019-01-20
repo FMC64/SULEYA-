@@ -8,11 +8,6 @@
 #include "headers.h"
 
 static const sprite_data_descriptor_t sprite_data[] = {
-    {S_TREE, "res/tree.png"},
-    {S_PEBBLES_MOD, "res/pebbles.jpg"},
-    {S_PEBBLES_MOD_HALF, "res/pebbles_mod.png"},
-    {S_SKY, "res/sky.png"},
-    {S_BENDY, "res/bendy_blurred.png"},
     {S_GRADIENT, "res/misc/gradient.png"},
     {S_GAX, "res/misc/gax.png"},
     {S_BASHO_MENU, "res/menu/basho.png"},

@@ -14,4 +14,6 @@ void gen_depot(cn_t *cn);
 void gen_depot_bg(cn_t *cn);
 void gen_depot_bridge_cables(cn_t *cn, vec3 pos, vec2 size);
 
+void gen_depot_box(cn_t *cn, vec3 pos, vec2 size);
+
 #endif

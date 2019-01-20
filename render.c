@@ -63,7 +63,9 @@ void render_draw(cn_t *cn)
             render_obj(cn, &cn->objs.set[i].obj[j]);
     if (cn->misc.is_gameover) {
         render_sprite(cn, cn->sprite[cn->misc.has_won ?
-        S_GAMEOVER_WIN : S_GAMEOVER], NULL, NULL);
+        S_GAMEOVER_WIN : S_GAMEOVER], NULL, &(sfTransform){{(float)cn->win.w /
+        (float)cn->sprite[S_GAMEOVER]->w, 0.0f, 0.0f, 0.0f, (float)cn->win.h /
+        (float)cn->sprite[S_GAMEOVER]->h, 0.0f, 0.0f, 0.0f, 1.0f}});
         render_highscore(cn);
     }
     if (cn->render.render_score)

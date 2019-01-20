@@ -29,7 +29,7 @@ static void gen_depot_bg_bridge(cn_t *cn)
     float start = 0.0f;
     float len = 8.0f + (float)(rand() % 4) * 4;
     float y = cn->gen.y + (randf() * 2.0f - 1.0f) * 20.0f;
-    float z = 10.0f + randf() * 40.0f;
+    float z = 10.0f + randf() * 70.0f;
     obj_fun_t *fun;
 
     start = randf() * 3.0f;

@@ -50,12 +50,9 @@ static void input_jump(cn_t *cn)
 
     if (cn->input.keystate[KEY_JUMP] && cn->player.fun->is_grounded)
         cn->player.can_jump = 1;
-    if (cn->input.keystate[KEY_JUMP] && cn->player.can_jump && (time < 0.1f)) {
-        if ((time + cn->win.framelen) > 0.1f)
-            cn->player.fun->speed.y += acc_fin * fmodf(time, 0.1f) / 0.1f;
-        else
+    if (cn->input.keystate[KEY_JUMP] && cn->player.can_jump &&
+    (time + cn->win.framelen < 0.1f))
             cn->player.fun->speed.y += acc_fin;
-    }
     if ((time > 0.2f) || (!cn->input.keystate[KEY_JUMP]))
         cn->player.can_jump = 0;
 }

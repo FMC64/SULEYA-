@@ -39,6 +39,9 @@ typedef enum {
     S_DEPOT_BG,
     S_DITHER_DOWN,
     S_CABLE,
+    S_CONTAINER,
+    S_CONTAINER_BLUE,
+    S_CONTAINER_WHITE,
     S_MAX
 } sprite_data_t;
 

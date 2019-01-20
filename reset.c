@@ -14,6 +14,7 @@ static void reset_gen(cn_t *cn)
     cn->gen.bg = -150.0f;
     cn->gen.depot.is_bridge = 0;
     cn->gen.depot.light = -20.0f;
+    cn->gen.depot.container = -20.0f;
     cn->gen.biome = BIOME_DEPOT;
     add_obj_fun(cn, (vec3){-2.0f, 0.0f, 0.0f}, (vec2){4.0f, 1.0f},
     cn->sprite[S_FLOOR1]);

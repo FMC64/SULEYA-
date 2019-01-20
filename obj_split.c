@@ -77,5 +77,7 @@ void split_obj(cn_t *cn, objset_t *set, uint64_t i, vec2 impulse)
     split = gen_split(5);
     for (size_t i = 0; i < split.count; i++)
         add_split_obj(cn, fun, split.rect[i], impulse);
+    if (fun->sprite == cn->sprite[S_BOX])
+        sfSound_play(cn->sound[SD_PLANK_BREAK_1 + rand() % 2].sound);
     destroy_obj(set, i);
 }

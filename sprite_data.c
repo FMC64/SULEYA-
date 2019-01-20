@@ -26,6 +26,9 @@ static const sprite_data_descriptor_t sprite_data[] = {
     {S_DEPOT_BG, "res/world/depot_bg.png"},
     {S_DITHER_DOWN, "res/world/dither_down.png"},
     {S_CABLE, "res/world/cable.png"},
+    {S_CONTAINER, "res/world/container.png"},
+    {S_CONTAINER_BLUE, "res/world/container_blue.png"},
+    {S_CONTAINER_WHITE, "res/world/container_white.png"},
     {0, NULL}
 };
 

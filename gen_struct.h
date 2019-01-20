@@ -15,6 +15,7 @@ typedef enum {
 typedef struct {
     int is_bridge;
     float light;
+    float container;
 } gen_depot_t;
 
 typedef struct {

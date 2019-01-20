@@ -9,6 +9,9 @@
 
 static const sound_data_descriptor_t sound_data[] = {
     {SD_FLAME, "res/snd/sfx/spacex_test.ogg"},
+    {SD_PLANK_BREAK_1, "res/snd/sfx/hl2_wood_plank_break1.wav"},
+    {SD_PLANK_BREAK_2, "res/snd/sfx/hl2_wood_plank_break3.wav"},
+    {SD_PLANK_BREAK_3, "res/snd/sfx/hl2_wood_plank_break4.wav"},
     {0, NULL}
 };
 

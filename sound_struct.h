@@ -10,6 +10,9 @@
 
 typedef enum {
     SD_FLAME,
+    SD_PLANK_BREAK_1,
+    SD_PLANK_BREAK_2,
+    SD_PLANK_BREAK_3,
     SD_MAX
 } sound_data_t;
 

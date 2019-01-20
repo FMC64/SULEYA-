@@ -45,11 +45,25 @@ static void gen_depot_bg_bridge(cn_t *cn)
     (vec2){len, 1.0f}, cn->sprite[S_BARRIER]);
 }
 
+static void gen_depot_bg_container(cn_t *cn)
+{
+    float size = 48.0f;
+    float z = 30.0f + randf() * 110.0f;
+
+    if (cn->gen.depot.container - cn->player.fun->pos.x < 200.0f) {
+        add_obj_fun(cn, (vec3){cn->gen.depot.container,
+        30.0f + randf() * 10.0f, z},
+        (vec2){size * 3.0f, size}, cn->sprite[S_CONTAINER + rand() % 3]);
+        cn->gen.depot.container += size * 3.0f * randf() * 2.0f;
+    }
+}
+
 void gen_depot_bg(cn_t *cn)
 {
     float bg_size = 256.0f;
 
     gen_depot_bg_bridge(cn);
+    gen_depot_bg_container(cn);
     if (cn->gen.bg - cn->player.fun->pos.x < 200.0f) {
         add_obj_fun(cn, (vec3){cn->gen.bg, -bg_size / 2.0f, 150.0f},
         (vec2){bg_size, bg_size},

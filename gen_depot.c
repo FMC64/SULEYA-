@@ -40,6 +40,8 @@ static void gen_depot_reg(cn_t *cn)
         start = 2.0f + randf() * 2.0f;
     fun = add_obj_fun(cn, (vec3){cn->gen.x + start, y, 0.0f}, (vec2){len, 1.0f},
     cn->sprite[S_FLOOR1]);
+    add_obj_fun(cn, (vec3){cn->gen.x + start, y, -0.2f}, (vec2){len, 1.0f},
+    cn->sprite[S_FLOOR1]);
     if (len > 6.0f)
         gen_depot_box(cn, fun->pos, fun->size);
     add_obj_fun(cn, (vec3){cn->gen.x + start, y + 1.0f, 0.0f},

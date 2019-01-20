@@ -12,11 +12,11 @@ X axis: from left to right
 Y axis: from up to down
 Z axis: from near to far
 
-The camera is aligned with the Z axis.
+The camera axis is aligned with the Z axis.
 
 
 One line = one entity in world
-The game is won when the player reaches the furthest entity
+The game is won when the player reaches the furthest entity (X axis)
 
 pos_x, pos_y, pos_z; w, h; sprite_index; is_destroyable
 ^       ^       ^    ^  ^       ^               ^
@@ -44,7 +44,15 @@ Map example:
 0, -15, 0; 10, 5; 11; 1
 12, -15, 0; 10, 6; 17; 0
 12.33, -18, 0; 1.2, 2.5; 17; 1
+6, -20, 2.0; 5, 3; 15; 1
+2, -17.5, 8.0; 2.5, 3; 17; 1
+8, -15, 16; 10, 5; 11; 1
 -1100, -650, 1000; 2500, 1250; 11; 0
+18, -15, 4; 10, 5; 11; 1
+8, -15, -5; 10, 10; 17; 1
+
+This map has overall 8 different Z positions, so it makes a 8-level parallax.
+But obviously you can add more objects with various depths, no limit about that.
 
 
 I should maybe add support for custom meshes for flexible collision,

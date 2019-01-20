@@ -30,8 +30,9 @@ positive integers--------------------------------
 
 Sprites indexes are defined in sprite_struct.h
 Some examples of filled textures:
-    11 - sky
-    17 - space
+    22 - floor
+    24 - box
+    30 - red container
 
 Don't hesitate to add your own sprites before S_MAX in the sprite_data_t enum,
 in sprite_date.c you'll find examples showing you how to set a path for the

@@ -40,14 +40,23 @@ static void poll_atk(cn_t *cn)
     }
 }
 
+static float atten_maxsx(cn_t *cn)
+{
+    float res = cn->player.maxsx;
+
+    if (res > 14.0f)
+        res = 14.0 + logf(res - 14.0f + 1.0f) / logf(1.7f);
+    return (res);
+}
+
 static void input_jump(cn_t *cn)
 {
-    float acc = (11.0f + (fabsf(cn->player.fun->speed.x) /
-    cn->player.maxsx) * 9.0f);
+    float acc;
     float time = (float)cn->player.fun->last_grounded * cn->win.framelen;
-    float acc_fin = -30.0f * cn->win.framelen - acc *
-    8.0 * cn->win.framelen;
+    float acc_fin;
 
+    acc = (11.0f + (fabsf(cn->player.fun->speed.x) / atten_maxsx(cn)) * 9.0f);
+    acc_fin = -30.0f * cn->win.framelen - acc * 8.0 * cn->win.framelen;
     if (cn->input.keystate[KEY_JUMP] && cn->player.fun->is_grounded)
         cn->player.can_jump = 1;
     if (cn->input.keystate[KEY_JUMP] && cn->player.can_jump &&
